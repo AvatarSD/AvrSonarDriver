@@ -7,11 +7,12 @@
 
 #include "init/init.h"
 #include "UART/UART.h"
-#include "ADC/ADC.h"
+#include "ADC/Analog.h"
 #include "avr/interrupt.h"
 #include "avr/io.h"
 #include "util/delay.h"
 
+UART mainPort(UDR0, 115200, 128, 32);
 
 // Pin change 0-7 interrupt service routine
 ISR(PCINT0_vect)//interrupt [PC_INT0] void pin_change_isr0(void)
@@ -102,8 +103,7 @@ ISR(TIMER1_COMPA_vect)//interrupt [TIM1_COMPA] void timer1_compa_isr(void)
 int main()
 {
 	init();
-	uartInit();
-	adcInit();
+
 
 	DDRB |= (1<<7);
 
@@ -112,7 +112,7 @@ int main()
 		_delay_ms(300);
 
 		PORTB ^= (1<<7);
-		putchar('a');
+		//mainPort("Hello!\r\n");
 	}
 	return 0;
 }

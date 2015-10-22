@@ -1,145 +1,274 @@
 /*
- * UART.cpp
+ * uarts_class.cpp
  *
- *  Created on: 21 жовт. 2015
- *      Author: sd
- */
+ * Created: 30.07.2015 16:10:35
+ *  Author: sd
+ */ 
 
 #include "UART.h"
+
 #include <avr/io.h>
-#include <avr/iom2560.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 #include <util/atomic.h>
+#include <util/delay.h>
 
-void uartInit()
+
+#define CYCLE_COUNT_WAIT 100000
+
+
+#define RXC    7
+#define TXC    6
+#define UDRE   5
+#define FE     4
+#define DOR    3
+#define UPE    2
+#define U2X    1
+#define MPCM   0
+
+#define RXCIE  7
+#define TXCIE  6
+#define UDRIE  5
+#define RXEN   4
+#define TXEN   3
+#define UCSZ2  2
+#define RXB8   1
+#define TXB8   0
+
+#define UMSEL1 7
+#define UMSEL0 6
+#define UPM1   5
+#define UPM0   4
+#define USBS   3
+#define UCSZ1  2
+#define UCSZ0  1
+#define UCPOL  0
+
+#define DATA_REGISTER_EMPTY (1<<UDRE)
+#define RX_COMPLETE (1<<RXC)
+#define FRAMING_ERROR (1<<FE)
+#define PARITY_ERROR (1<<UPE)
+#define DATA_OVERRUN (1<<DOR)
+
+#define UCSRA_OFFSET -6
+#define UCSRB_OFFSET -5
+#define UCSRC_OFFSET -4
+#define UBRR_OFFSET -2
+
+
+UART::UART(volatile unsigned char& udr, unsigned long int baud, int txBuffersize, int rxBuffersize) :
+_udr(&udr), tx_buffer_size(txBuffersize), rx_buffer_size(rxBuffersize)
 {
-	// USART0 initialization
-	// Communication Parameters: 8 Data, 1 Stop, No Parity
-	// USART0 Receiver: On
-	// USART0 Transmitter: On
-	// USART0 Mode: Asynchronous
-	// USART0 Baud Rate: 115200 (Double Speed Mode)
-	UCSR0A=(0<<RXC0) | (0<<TXC0) | (0<<UDRE0) | (0<<FE0) | (0<<DOR0) | (0<<UPE0) | (1<<U2X0) | (0<<MPCM0);
-	UCSR0B=(1<<RXCIE0) | (1<<TXCIE0) | (0<<UDRIE0) | (1<<RXEN0) | (1<<TXEN0) | (0<<UCSZ02) | (0<<RXB80) | (0<<TXB80);
-	UCSR0C=(0<<UMSEL01) | (0<<UMSEL00) | (0<<UPM01) | (0<<UPM00) | (0<<USBS0) | (1<<UCSZ01) | (1<<UCSZ00) | (0<<UCPOL0);
-	UBRR0H=0x00;
-	UBRR0L=0x10;
+	_ucsra = _udr+UCSRA_OFFSET;
+	_ucsrb = _udr+UCSRB_OFFSET;
+	_ucsrc = _udr+UCSRC_OFFSET;
+	_ubrr = _udr+UBRR_OFFSET;
 
-	// USART1 initialization
-	// USART1 disabled
-	UCSR1B=(0<<RXCIE1) | (0<<TXCIE1) | (0<<UDRIE1) | (0<<RXEN1) | (0<<TXEN1) | (0<<UCSZ12) | (0<<RXB81) | (0<<TXB81);
-	/*
-	// USART2 initialization
-	// USART2 disabled
-	UCSR2B=(0<<RXCIE2) | (0<<TXCIE2) | (0<<UDRIE2) | (0<<RXEN2) | (0<<TXEN2) | (0<<UCSZ22) | (0<<RXB82) | (0<<TXB82);
+	tx_buffer = (char*)calloc(tx_buffer_size, sizeof(char));
+	rx_buffer = (char*)calloc(rx_buffer_size, sizeof(char));
 
-	// USART3 initialization
-	// USART3 disabled
-	UCSR3B=(0<<RXCIE3) | (0<<TXCIE3) | (0<<UDRIE3) | (0<<RXEN3) | (0<<TXEN3) | (0<<UCSZ32) | (0<<RXB83) | (0<<TXB83);
-	 */
+	//rx_buffer_overflow = 0;
+	tx_wr_index = 0;
+	tx_rd_index = 0;
+	tx_counter = 0;
+	rx_wr_index = 0;
+	rx_rd_index = 0;
+	rx_counter = 0;
+
+	begin(baud);
 }
 
-
-#define DATA_REGISTER_EMPTY (1<<UDRE0)
-#define RX_COMPLETE (1<<RXC0)
-#define FRAMING_ERROR (1<<FE0)
-#define PARITY_ERROR (1<<UPE0)
-#define DATA_OVERRUN (1<<DOR0)
-
-// USART0 Receiver buffer
-#define RX_BUFFER_SIZE0 64
-char rx_buffer0[RX_BUFFER_SIZE0];
-
-#if RX_BUFFER_SIZE0 <= 256
-unsigned char rx_wr_index0=0,rx_rd_index0=0;
-#else
-unsigned int rx_wr_index0=0,rx_rd_index0=0;
-#endif
-
-#if RX_BUFFER_SIZE0 < 256
-unsigned char rx_counter0=0;
-#else
-unsigned int rx_counter0=0;
-#endif
-
-// This flag is set on USART0 Receiver buffer overflow
-bool rx_buffer_overflow0;
-
-// USART0 Receiver interrupt service routine
-ISR(USART0_RX_vect)//interrupt [USART0_RXC] void usart0_rx_isr(void)
+UART::~UART()
 {
-	char status,data;
-	status=UCSR0A;
-	data=UDR0;
-	if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
+	end();
+	free(tx_buffer);
+	free(rx_buffer);
+}
+
+void UART::setBaud(unsigned long int baud)
+{
+	*_ubrr = (((F_CPU) + 8UL * (baud)) / (16UL * (baud)) -1UL);
+}
+
+void UART::tx_byte_int()
+{
+	if (tx_counter > 0)
 	{
-		rx_buffer0[rx_wr_index0++]=data;
-#if RX_BUFFER_SIZE0 == 256
-		// special case for receiver buffer size=256
-		if (++rx_counter0 == 0) rx_buffer_overflow0=1;
-#else
-		if (rx_wr_index0 == RX_BUFFER_SIZE0) rx_wr_index0=0;
-		if (++rx_counter0 == RX_BUFFER_SIZE0)
-		{
-			rx_counter0=0;
-			rx_buffer_overflow0=1;
-		}
-#endif
+		tx_counter--;
+		*_udr = tx_buffer[tx_rd_index++];
+		if (tx_rd_index == tx_buffer_size) tx_rd_index=0;
 	}
 }
 
+void UART::putch(char c)
+{
+	while (tx_counter == tx_buffer_size);
+	cli();
+	if (tx_counter || ((*_ucsra & DATA_REGISTER_EMPTY)==0))
+	{
+		tx_buffer[tx_wr_index++]=c;
+		if (tx_wr_index == tx_buffer_size) tx_wr_index=0;
+		tx_counter++;
+	}
+	else
+		*_udr=c;
+	sei();
+}
 
-char getchar(void)
+int  UART::WriteCOM(unsigned int outlen, unsigned char *outbuf)
+{
+	for(unsigned int i = 0; i < outlen; i++)
+		putch(outbuf[i]);
+	return outlen;
+}
+
+void UART::rx_byte_int()
+{
+	char status = *_ucsra;
+	char data = *_udr;
+
+	if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
+	{
+		byteRecived(data);
+
+		rx_buffer[rx_wr_index++]=data;
+		if (rx_wr_index == rx_buffer_size) rx_wr_index=0;
+		if (++rx_counter == rx_buffer_size)	rx_counter=rx_buffer_size;
+	}
+}
+
+char UART::getch()
 {
 	char data;
-	while (rx_counter0==0);
-	data=rx_buffer0[rx_rd_index0++];
-//#if RX_BUFFER_SIZE0 != 256
-	if (rx_rd_index0 == RX_BUFFER_SIZE0) rx_rd_index0=0;
-//#endif
+	while (rx_counter==0);
 	cli();
-	--rx_counter0;
+	data=rx_buffer[rx_rd_index++];
+	if (rx_rd_index == rx_buffer_size) rx_rd_index=0;
+	--rx_counter;
 	sei();
 	return data;
 }
-//#endif
 
-// USART0 Transmitter buffer
-#define TX_BUFFER_SIZE0 128
-char tx_buffer0[TX_BUFFER_SIZE0];
-
-
-unsigned int tx_wr_index0=0, tx_rd_index0=0, tx_counter0=0;
-
-// USART0 Transmitter interrupt service routine
-ISR(USART0_TX_vect)//interrupt [USART0_TXC] void usart0_tx_isr(void)
+int  UART::ReadCOM(unsigned int inlen, unsigned char *inbuf)
 {
-	if (tx_counter0)
+	long int delay_counter = 0;
+	while((rx_counter < inlen)&&(delay_counter < CYCLE_COUNT_WAIT))
+		delay_counter++;
+
+	unsigned int buffCount = rx_counter;
+	if(buffCount > inlen)
+		buffCount = inlen;
+	for(unsigned int i = 0; i < buffCount; i++)
+		inbuf[i] = getch();
+	return buffCount;
+}
+
+void UART::byteRecived(char rxByte){}
+
+void UART::flush(void) // erase rx circular buffer
+{
+	rx_rd_index = rx_wr_index;
+	rx_counter = 0;
+}
+
+void UART::BreakCOM(void)
+{
+	while(tx_counter > 0);
+	unsigned short int tempUBRR = *_ubrr;
+	setBaud(4800);
+	putch(0x00);
+	while(tx_counter > 0);
+	*_ubrr = tempUBRR;
+}
+
+void UART::print(const char * str)
+{
+	int curr = 0;
+	while(str[curr] != '\0')
+		putch(str[curr++]);
+}
+
+void UART::print(long int num)
+{
+	char buf[12];
+	sprintf(buf, "%ld", num);
+	print(buf);
+}
+
+void UART::print(int num)
+{
+	char buf[12];
+	sprintf(buf, "%d", num);
+	print(buf);
+}
+
+void UART::print(unsigned long int num)
+{
+	char buf[12];
+	sprintf(buf, "%lu", num);
+	print(buf);
+}
+
+void UART::print(unsigned int num)
+{
+	char buf[12];
+	sprintf(buf, "%u", num);
+	print(buf);
+}
+
+void UART::print(double num)
+{
+	char buf[12];
+	sprintf(buf, "%f", num);
+	print(buf);
+}
+
+void UART::print(const __FlashStringHelper * flashStr)
+{
+	char readedByte, *flashPointer = (char*)flashStr;
+	readedByte = pgm_read_byte(flashPointer);
+	while(readedByte)
 	{
-		--tx_counter0;
-		UDR0=tx_buffer0[tx_rd_index0++];
-#if TX_BUFFER_SIZE0 != 256
-		if (tx_rd_index0 == TX_BUFFER_SIZE0) tx_rd_index0=0;
-#endif
+		putch(readedByte);
+		flashPointer++;
+		readedByte = pgm_read_byte(flashPointer);
 	}
 }
 
-
-void putchar(char c)
-{
-	while (tx_counter0 == TX_BUFFER_SIZE0);
-	cli();
-	if (tx_counter0 || ((UCSR0A & DATA_REGISTER_EMPTY)==0))
-	{
-		tx_buffer0[tx_wr_index0++]=c;
-#if TX_BUFFER_SIZE0 != 256
-		if (tx_wr_index0 == TX_BUFFER_SIZE0) tx_wr_index0=0;
-#endif
-		++tx_counter0;
-	}
-	else
-		UDR0=c;
-	sei();
+int UART::available(){
+	return rx_counter;
 }
 
+char UART::peek()
+{
+	return rx_buffer[rx_rd_index];
+}
 
+void UART::end()
+{
+	*_ucsra = 0x00;
+	*_ucsrb = 0x00;
+	*_ucsrc = 0x00;
+	flush();
+}
+
+void UART::begin()
+{
+	// USART initialization
+	// Communication Parameters: 8 Data, 1 Stop, No Parity
+	// USART Receiver: On
+	// USART Transmitter: On
+	// USART Mode: Asynchronous
+
+	*_ucsra=(0<<RXC) | (0<<TXC) | (0<<UDRE) | (0<<FE) | (0<<DOR) | (0<<UPE) | (0<<U2X) | (0<<MPCM);
+	*_ucsrb=(1<<RXCIE) | (1<<TXCIE) | (0<<UDRIE) | (1<<RXEN) | (1<<TXEN) | (0<<UCSZ2) | (0<<RXB8) | (0<<TXB8);
+	*_ucsrc=(0<<UMSEL1) | (0<<UMSEL0) | (0<<UPM1) | (0<<UPM0) | (0<<USBS) | (1<<UCSZ1) | (1<<UCSZ0) | (0<<UCPOL);
+}
+
+void UART::begin(long baud_rate)
+{
+	begin();
+	setBaud(baud_rate);
+}
 
