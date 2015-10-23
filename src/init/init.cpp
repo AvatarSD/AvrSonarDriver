@@ -92,33 +92,7 @@ void init()
 	OCR0A=0x00;
 	OCR0B=0x00;
 
-	// Timer/Counter 1 initialization
-	// Clock source: System Clock
-	// Clock value: 250,000 kHz
-	// Mode: CTC top=ICR1
-	// OC1A output: Disconnected
-	// OC1B output: Disconnected
-	// OC1C output: Disconnected
-	// Noise Canceler: Off
-	// Input Capture on Falling Edge
-	// Timer Period: 60 ms
-	// Timer1 Overflow Interrupt: Off
-	// Input Capture Interrupt: On
-	// Compare A Match Interrupt: On
-	// Compare B Match Interrupt: Off
-	// Compare C Match Interrupt: Off
-	TCCR1A=(0<<COM1A1) | (0<<COM1A0) | (0<<COM1B1) | (0<<COM1B0) | (0<<COM1C1) | (0<<COM1C0) | (0<<WGM11) | (0<<WGM10);
-	TCCR1B=(0<<ICNC1) | (0<<ICES1) | (1<<WGM13) | (1<<WGM12) | (0<<CS12) | (1<<CS11) | (1<<CS10);
-	TCNT1H=0x00;
-	TCNT1L=0x00;
-	ICR1H=0x3A;
-	ICR1L=0x97;
-	OCR1AH=0x00;
-	OCR1AL=0x03;
-	OCR1BH=0x00;
-	OCR1BL=0x00;
-	OCR1CH=0x00;
-	OCR1CL=0x00;
+
 
 	// Timer/Counter 2 initialization
 	// Clock source: System Clock
@@ -217,8 +191,7 @@ void init()
 	// Timer/Counter 0 Interrupt(s) initialization
 	TIMSK0=(0<<OCIE0B) | (0<<OCIE0A) | (0<<TOIE0);
 
-	// Timer/Counter 1 Interrupt(s) initialization
-	TIMSK1=(1<<ICIE1) | (0<<OCIE1C) | (0<<OCIE1B) | (1<<OCIE1A) | (0<<TOIE1);
+
 
 	// Timer/Counter 2 Interrupt(s) initialization
 	TIMSK2=(0<<OCIE2B) | (0<<OCIE2A) | (0<<TOIE2);
@@ -232,55 +205,6 @@ void init()
 	// Timer/Counter 5 Interrupt(s) initialization
 	TIMSK5=(0<<ICIE5) | (0<<OCIE5C) | (0<<OCIE5B) | (0<<OCIE5A) | (0<<TOIE5);
 
-	// External Interrupt(s) initialization
-	// INT0: On
-	// INT0 Mode: Any change
-	// INT1: On
-	// INT1 Mode: Any change
-	// INT2: On
-	// INT2 Mode: Any change
-	// INT3: On
-	// INT3 Mode: Any change
-	// INT4: On
-	// INT4 Mode: Any change
-	// INT5: On
-	// INT5 Mode: Any change
-	// INT6: On
-	// INT6 Mode: Any change
-	// INT7: On
-	// INT7 Mode: Any change
-	EICRA=(0<<ISC31) | (1<<ISC30) | (0<<ISC21) | (1<<ISC20) | (0<<ISC11) | (1<<ISC10) | (0<<ISC01) | (1<<ISC00);
-	EICRB=(0<<ISC71) | (1<<ISC70) | (0<<ISC61) | (1<<ISC60) | (0<<ISC51) | (1<<ISC50) | (0<<ISC41) | (1<<ISC40);
-	EIMSK=(1<<INT7) | (1<<INT6) | (1<<INT5) | (1<<INT4) | (1<<INT3) | (1<<INT2) | (1<<INT1) | (1<<INT0);
-	EIFR=(1<<INTF7) | (1<<INTF6) | (1<<INTF5) | (1<<INTF4) | (1<<INTF3) | (1<<INTF2) | (1<<INTF1) | (1<<INTF0);
-	// PCINT0 interrupt: On
-	// PCINT1 interrupt: On
-	// PCINT2 interrupt: On
-	// PCINT3 interrupt: On
-	// PCINT4 interrupt: On
-	// PCINT5 interrupt: On
-	// PCINT6 interrupt: On
-	// PCINT7 interrupt: On
-	// PCINT8 interrupt: On
-	// PCINT9 interrupt: On
-	// PCINT10 interrupt: On
-	// PCINT11 interrupt: On
-	// PCINT12 interrupt: On
-	// PCINT13 interrupt: On
-	// PCINT14 interrupt: On
-	// PCINT15 interrupt: On
-	// PCINT16 interrupt: Off
-	// PCINT17 interrupt: Off
-	// PCINT18 interrupt: Off
-	// PCINT19 interrupt: Off
-	// PCINT20 interrupt: Off
-	// PCINT21 interrupt: Off
-	// PCINT22 interrupt: Off
-	// PCINT23 interrupt: Off
-	PCMSK0=(1<<PCINT7) | (1<<PCINT6) | (1<<PCINT5) | (1<<PCINT4) | (1<<PCINT3) | (1<<PCINT2) | (1<<PCINT1) | (1<<PCINT0);
-	PCMSK1=(1<<PCINT15) | (1<<PCINT14) | (1<<PCINT13) | (1<<PCINT12) | (1<<PCINT11) | (1<<PCINT10) | (1<<PCINT9) | (1<<PCINT8);
-	PCMSK2=0;//(0<<PCINT23) | (0<<PCINT22) | (0<<PCINT21) | (0<<PCINT20) | (0<<PCINT19) | (0<<PCINT18) | (0<<PCINT17) | (0<<PCINT16);
-	PCICR=(0<<2) | (1<<PCIE1) | (1<<PCIE0);
 
 	// Analog Comparator initialization
 	// Analog Comparator: Off
