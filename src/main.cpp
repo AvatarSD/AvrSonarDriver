@@ -12,6 +12,7 @@
 #include "avr/io.h"
 #include "util/delay.h"
 #include "stdio.h"
+#include "string.h"
 
 
 
@@ -72,11 +73,15 @@ void sendData(UART & port, const char* pin, unsigned int distance)
 		buff[6] ^= buff[i];
 	buff[7] = 0;
 #else
-	char buff[12] = {'P'};
+	char buff[14] = {'P'};
 	buff[1] = pin[1];
 	buff[2] = pin[2];
 	buff[3] = ' ';
 	sprintf(buff+4, "%d", distance);
+	unsigned char buffLen = strlen(buff);
+	buff[buffLen] = ' ';
+	buff[buffLen+1] = ' ';
+	buff[buffLen+2] = 0;
 #endif
 	port(buff);
 }
@@ -85,23 +90,16 @@ void sendData(UART & port, const char* pin, unsigned int distance)
 bool flag[SONARS_COUNT];
 unsigned int timerLast[SONARS_COUNT];
 
-
-// Pin change 0-7 interrupt service routine
-ISR(PCINT0_vect)//interrupt [PC_INT0] void pin_change_isr0(void)
-{
-	// Place your code here
-
-}
-
-// Pin change 8-15 interrupt service routine
-ISR(PCINT1_vect)//interrupt [PC_INT1] void pin_change_isr1(void)
-{
-	// Place your code here
-
-}
+#define SONAR_ROUTINE_HANDLER sonarRoutineHandler(TIM_VAL, \
+		timerLast[SONAR_NUM], \
+		SONAR_PIN_REG, \
+		SONAR_PIN_NUM, \
+		flag[SONAR_NUM], \
+		mainPort, \
+		SONAR_NAME)
 
 inline void sonarRoutineHandler(
-		unsigned int & timerCurr,
+		unsigned int timerCurr,
 		unsigned int & timerLast,
 		volatile unsigned char pin,
 		char pinNum,
@@ -124,12 +122,31 @@ inline void sonarRoutineHandler(
 
 }
 
+
+
 // External Interrupt 0 service routine
 ISR(INT0_vect)//interrupt [EXT_INT0] void ext_int0_isr(void)
 {
-#define SONAR_NUM 0
-	unsigned int timerCurr = TIM_VAL;
-	sonarRoutineHandler(timerCurr, timerLast[SONAR_NUM], PIND,0, flag[SONAR_NUM], mainPort, "PD3");
+#define SONAR_NUM 		0
+#define SONAR_PIN_REG 	PIND
+#define SONAR_PIN_NUM 	0
+#define SONAR_NAME 		"PD3"
+
+	SONAR_ROUTINE_HANDLER;
+}
+
+// Pin change 0-7 interrupt service routine
+ISR(PCINT0_vect)//interrupt [PC_INT0] void pin_change_isr0(void)
+{
+	// Place your code here
+
+}
+
+// Pin change 8-15 interrupt service routine
+ISR(PCINT1_vect)//interrupt [PC_INT1] void pin_change_isr1(void)
+{
+	// Place your code here
+
 }
 
 // External Interrupt 1 service routine
@@ -184,23 +201,23 @@ ISR(INT7_vect)//interrupt [EXT_INT7] void ext_int7_isr(void)
 // Timer1 input capture interrupt service routine
 ISR(TIMER1_CAPT_vect)//interrupt [TIM1_CAPT] void timer1_capt_isr(void)
 {
-	// Place your code here
 	TRIGGER_ON;
-	ARDU_LED_TOGGLE;
-	mainPort("\r\n");
 	for(unsigned char i = 0; i< SONARS_COUNT; i++)
 	{
-	flag[i] = false;
-	timerLast[i] = 0;
+		flag[i] = false;
+		timerLast[i] = 0;
 	}
+
+#ifdef STR_VAL
+	ARDU_LED_TOGGLE;
+	mainPort("\r\n");
+#endif
 }
 
 // Timer1 output compare A interrupt service routine
 ISR(TIMER1_COMPA_vect)//interrupt [TIM1_COMPA] void timer1_compa_isr(void)
 {
-	// Place your code here
 	TRIGGER_OFF;
-
 }
 
 void setupTimer()
