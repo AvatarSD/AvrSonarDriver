@@ -16,7 +16,7 @@
 #define ADC_VREF_TYPE ((1<<REFS1) | (1<<REFS0) | (0<<ADLAR))
 /**********************/
 
-
+#define ADC_INPUT_COUNT (LAST_ADC_INPUT - FIRST_ADC_INPUT +1)
 class Analog
 {
 public:
