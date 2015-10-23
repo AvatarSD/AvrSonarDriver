@@ -17,12 +17,12 @@
 
 
 /********* Settings ********/
-#define UART_PORT 		UDR1
+#define UART_PORT 		UDR2
 #define UART_SPEED 		115200
 #define UART_TX_BUFF 	128
 #define UART_RX_BUF 	32
-#define UART_RX_INT_VEC USART1_RX_vect
-#define UART_TX_INT_VEC USART1_TX_vect
+#define UART_RX_INT_VEC USART2_RX_vect
+#define UART_TX_INT_VEC USART2_TX_vect
 #define TRIGGER_PORT 	PORTH
 #define TRIGGER_DDR 	DDRH
 #define TRIGGER_PIN_NUM	5
@@ -107,6 +107,7 @@ inline void sonarRoutineHandler(
 		UART & port,
 		const char * portName)
 {
+	sei();
 	if(pin&(1<<pinNum))
 	{
 		timerLast = timerCurr;
@@ -119,21 +120,10 @@ inline void sonarRoutineHandler(
 		sendData(port, portName, distance);
 		flag = false;
 	}
-
+cli();
 }
 
 
-
-// External Interrupt 0 service routine
-ISR(INT0_vect)//interrupt [EXT_INT0] void ext_int0_isr(void)
-{
-#define SONAR_NUM 		0
-#define SONAR_PIN_REG 	PIND
-#define SONAR_PIN_NUM 	0
-#define SONAR_NAME 		"PD3"
-
-	SONAR_ROUTINE_HANDLER;
-}
 
 // Pin change 0-7 interrupt service routine
 ISR(PCINT0_vect)//interrupt [PC_INT0] void pin_change_isr0(void)
@@ -149,53 +139,132 @@ ISR(PCINT1_vect)//interrupt [PC_INT1] void pin_change_isr1(void)
 
 }
 
+// External Interrupt 0 service routine
+ISR(INT0_vect)//interrupt [EXT_INT0] void ext_int0_isr(void)
+{
+#define SONAR_NUM 		0
+#define SONAR_PIN_REG 	PIND
+#define SONAR_PIN_NUM 	0
+#define SONAR_NAME 		"PD0"
+
+	SONAR_ROUTINE_HANDLER;
+
+#undef SONAR_NUM
+#undef SONAR_PIN_REG
+#undef SONAR_PIN_NUM
+#undef SONAR_NAME
+}
+
 // External Interrupt 1 service routine
 ISR(INT1_vect)//interrupt [EXT_INT1] void ext_int1_isr(void)
 {
-	// Place your code here
+#define SONAR_NUM 		1
+#define SONAR_PIN_REG 	PIND
+#define SONAR_PIN_NUM 	1
+#define SONAR_NAME 		"PD1"
 
+	SONAR_ROUTINE_HANDLER;
+
+#undef SONAR_NUM
+#undef SONAR_PIN_REG
+#undef SONAR_PIN_NUM
+#undef SONAR_NAME
 }
 
 // External Interrupt 2 service routine
 ISR(INT2_vect)//interrupt [EXT_INT2] void ext_int2_isr(void)
 {
-	// Place your code here
+#define SONAR_NUM 		2
+#define SONAR_PIN_REG 	PIND
+#define SONAR_PIN_NUM 	2
+#define SONAR_NAME 		"PD2"
 
+	SONAR_ROUTINE_HANDLER;
+
+#undef SONAR_NUM
+#undef SONAR_PIN_REG
+#undef SONAR_PIN_NUM
+#undef SONAR_NAME
 }
 
 // External Interrupt 3 service routine
 ISR(INT3_vect)//interrupt [EXT_INT3] void ext_int3_isr(void)
 {
-	// Place your code here
+#define SONAR_NUM 		3
+#define SONAR_PIN_REG 	PIND
+#define SONAR_PIN_NUM 	3
+#define SONAR_NAME 		"PD3"
 
+	SONAR_ROUTINE_HANDLER;
+
+#undef SONAR_NUM
+#undef SONAR_PIN_REG
+#undef SONAR_PIN_NUM
+#undef SONAR_NAME
 }
 
 // External Interrupt 4 service routine
 ISR(INT4_vect)//interrupt [EXT_INT4] void ext_int4_isr(void)
 {
-	// Place your code here
+#define SONAR_NUM 		4
+#define SONAR_PIN_REG 	PINE
+#define SONAR_PIN_NUM 	4
+#define SONAR_NAME 		"PE4"
 
+	SONAR_ROUTINE_HANDLER;
+
+#undef SONAR_NUM
+#undef SONAR_PIN_REG
+#undef SONAR_PIN_NUM
+#undef SONAR_NAME
 }
 
 // External Interrupt 5 service routine
 ISR(INT5_vect)//interrupt [EXT_INT5] void ext_int5_isr(void)
 {
-	// Place your code here
+#define SONAR_NUM 		5
+#define SONAR_PIN_REG 	PINE
+#define SONAR_PIN_NUM 	5
+#define SONAR_NAME 		"PE5"
 
+	SONAR_ROUTINE_HANDLER;
+
+#undef SONAR_NUM
+#undef SONAR_PIN_REG
+#undef SONAR_PIN_NUM
+#undef SONAR_NAME
 }
 
 // External Interrupt 6 service routine
 ISR(INT6_vect)//interrupt [EXT_INT6] void ext_int6_isr(void)
 {
-	// Place your code here
+#define SONAR_NUM 		6
+#define SONAR_PIN_REG 	PINE
+#define SONAR_PIN_NUM 	6
+#define SONAR_NAME 		"PE6"
 
+	SONAR_ROUTINE_HANDLER;
+
+#undef SONAR_NUM
+#undef SONAR_PIN_REG
+#undef SONAR_PIN_NUM
+#undef SONAR_NAME
 }
 
 // External Interrupt 7 service routine
 ISR(INT7_vect)//interrupt [EXT_INT7] void ext_int7_isr(void)
 {
-	// Place your code here
+#define SONAR_NUM 		7
+#define SONAR_PIN_REG 	PINE
+#define SONAR_PIN_NUM 	7
+#define SONAR_NAME 		"PE7"
 
+	SONAR_ROUTINE_HANDLER;
+
+#undef SONAR_NUM
+#undef SONAR_PIN_REG
+#undef SONAR_PIN_NUM
+#undef SONAR_NAME
 }
 
 // Timer1 input capture interrupt service routine
