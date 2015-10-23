@@ -12,7 +12,18 @@
 #include "avr/io.h"
 #include "util/delay.h"
 
-UART mainPort(UDR0, 115200, 128, 32);
+UART mainPort(UDR1, 115200, 128, 32);
+
+ISR(USART1_RX_vect)
+{
+	mainPort.rx_byte_int();
+}
+
+ISR(USART1_TX_vect)
+{
+	mainPort.tx_byte_int();
+}
+
 
 // Pin change 0-7 interrupt service routine
 ISR(PCINT0_vect)//interrupt [PC_INT0] void pin_change_isr0(void)
@@ -102,7 +113,7 @@ ISR(TIMER1_COMPA_vect)//interrupt [TIM1_COMPA] void timer1_compa_isr(void)
 
 int main()
 {
-	init();
+	//init();
 
 
 	DDRB |= (1<<7);
@@ -111,8 +122,8 @@ int main()
 	{
 		_delay_ms(300);
 
-		PORTB ^= (1<<7);
-		//mainPort("Hello!\r\n");
+
+		mainPort.print(F("Hell0!\r\n"));
 	}
 	return 0;
 }
