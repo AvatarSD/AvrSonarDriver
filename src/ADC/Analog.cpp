@@ -52,12 +52,13 @@ void Analog::ADCint()
 {
 	//todo repair reading
 	static unsigned char input_index=0;
-	unsigned char wr_index = input_index-1;
+
+	int wr_index = input_index-1;
 	if (wr_index < 0)
 		wr_index=LAST_ADC_INPUT-FIRST_ADC_INPUT;
 
 	// Read the AD conversion result
-	adc_data[input_index]=ADCW;
+	adc_data[wr_index]=ADCW;
 	// Select next ADC input
 	if (++input_index > (LAST_ADC_INPUT-FIRST_ADC_INPUT))
 		input_index=0;
@@ -67,7 +68,7 @@ void Analog::ADCint()
 	// Delay needed for the stabilization of the ADC input voltage
 	_delay_us(10);
 	// Start the AD conversion
-	ADCSRA|=(1<<ADSC);
+	//ADCSRA|=(1<<ADSC);
 }
 
 unsigned int Analog::dataAt(char pin)
