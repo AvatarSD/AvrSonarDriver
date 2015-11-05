@@ -45,7 +45,7 @@
 #define ARDU_LED_ON 	ARDU_LED_PORT |= (1<<ARDU_LED_PIN)
 
 
-#define STR_VAL
+//#define STR_VAL
 
 
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
