@@ -7,25 +7,24 @@
 
 #include "init/init.h"
 #include "UART/UART.h"
-#include "ADC/Analog.h"
+//#include "ADC/Analog.h"
 #include "avr/interrupt.h"
 #include "avr/io.h"
 #include "util/delay.h"
 #include "stdio.h"
 #include "string.h"
 
-
-
 /********* Settings ********/
-#define UART_PORT 		UDR2
+#define UART_PORT 		UDR0
 #define UART_SPEED 		115200
 #define UART_TX_BUFF 	128
 #define UART_RX_BUF 	32
-#define UART_RX_INT_VEC USART2_RX_vect
-#define UART_TX_INT_VEC USART2_TX_vect
+#define UART_RX_INT_VEC USART0_RX_vect
+#define UART_TX_INT_VEC USART0_TX_vect
 #define TRIGGER_PORT 	PORTH
 #define TRIGGER_DDR 	DDRH
 #define TRIGGER_PIN_NUM	5
+//#define STR_VAL
 /***************************/
 
 #define TIM_VAL TCNT1
@@ -35,7 +34,6 @@
 #define TRIGGER_OFF		TRIGGER_PORT &=~ (1<<TRIGGER_PIN_NUM)
 #define TRIGGER_ON 		TRIGGER_PORT |= (1<<TRIGGER_PIN_NUM)
 
-
 #define ARDU_LED_DDR	DDRB
 #define ARDU_LED_PORT	PORTB
 #define ARDU_LED_PIN	7
@@ -43,9 +41,6 @@
 #define ARDU_LED_SETUP 	ARDU_LED_DDR |= (1<<ARDU_LED_PIN)
 #define ARDU_LED_OFF	ARDU_LED_PORT &=~ (1<<ARDU_LED_PIN)
 #define ARDU_LED_ON 	ARDU_LED_PORT |= (1<<ARDU_LED_PIN)
-
-
-//#define STR_VAL
 
 
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
@@ -60,20 +55,20 @@ ISR(UART_TX_INT_VEC)
 	mainPort.tx_byte_int();
 }
 
-
-
 void sendData(UART & port, const char* pin, unsigned int distance)
 {
 #ifndef STR_VAL
-	char buff[8] = {'$', 'P'};
-	buff[2] = pin[1];
-	buff[3] = pin[2];
-	*(unsigned short int *)(buff+4) = distance;
-	for(char i = 0; i < 6; i++)
+	char buff[8] =
+	{ '$', 'P' };
+	for (unsigned char i = 1; i < 3; i++)
+		buff[i + 1] = pin[i];
+	*(unsigned short int *) (buff + 4) = distance;
+	for (char i = 0; i < 6; i++)
 		buff[6] ^= buff[i];
 	buff[7] = 0;
 #else
-	char buff[14] = {'P'};
+	char buff[14] =
+	{	'P'};
 	buff[1] = pin[1];
 	buff[2] = pin[2];
 	buff[3] = ' ';
@@ -98,49 +93,42 @@ unsigned int timerLast[SONARS_COUNT];
 		mainPort, \
 		SONAR_NAME)
 
-inline void sonarRoutineHandler(
-		unsigned int timerCurr,
-		unsigned int & timerLast,
-		volatile unsigned char pin,
-		char pinNum,
-		bool & flag,
-		UART & port,
-		const char * portName)
+inline void sonarRoutineHandler(unsigned int timerCurr,
+		unsigned int & timerLast, volatile unsigned char pin, char pinNum,
+		bool & flag, UART & port, const char * portName)
 {
 	sei();
-	if(pin&(1<<pinNum))
+	if (pin & (1 << pinNum))
 	{
 		timerLast = timerCurr;
 		flag = true;
 	}
-	else if(flag)
+	else if (flag)
 	{
 		unsigned int distance = timerCurr - timerLast;
-		distance /= ((double)58/2.5);
+		distance /= ((double) 58 / 2.5);
 		sendData(port, portName, distance);
 		flag = false;
 	}
-cli();
+	cli();
 }
 
-
-
 // Pin change 0-7 interrupt service routine
-ISR(PCINT0_vect)//interrupt [PC_INT0] void pin_change_isr0(void)
+ISR(PCINT0_vect) //interrupt [PC_INT0] void pin_change_isr0(void)
 {
 	// Place your code here
 
 }
 
 // Pin change 8-15 interrupt service routine
-ISR(PCINT1_vect)//interrupt [PC_INT1] void pin_change_isr1(void)
+ISR(PCINT1_vect) //interrupt [PC_INT1] void pin_change_isr1(void)
 {
 	// Place your code here
 
 }
 
 // External Interrupt 0 service routine
-ISR(INT0_vect)//interrupt [EXT_INT0] void ext_int0_isr(void)
+ISR(INT0_vect) //interrupt [EXT_INT0] void ext_int0_isr(void)
 {
 #define SONAR_NUM 		0
 #define SONAR_PIN_REG 	PIND
@@ -156,7 +144,7 @@ ISR(INT0_vect)//interrupt [EXT_INT0] void ext_int0_isr(void)
 }
 
 // External Interrupt 1 service routine
-ISR(INT1_vect)//interrupt [EXT_INT1] void ext_int1_isr(void)
+ISR(INT1_vect) //interrupt [EXT_INT1] void ext_int1_isr(void)
 {
 #define SONAR_NUM 		1
 #define SONAR_PIN_REG 	PIND
@@ -172,7 +160,7 @@ ISR(INT1_vect)//interrupt [EXT_INT1] void ext_int1_isr(void)
 }
 
 // External Interrupt 2 service routine
-ISR(INT2_vect)//interrupt [EXT_INT2] void ext_int2_isr(void)
+ISR(INT2_vect) //interrupt [EXT_INT2] void ext_int2_isr(void)
 {
 #define SONAR_NUM 		2
 #define SONAR_PIN_REG 	PIND
@@ -188,7 +176,7 @@ ISR(INT2_vect)//interrupt [EXT_INT2] void ext_int2_isr(void)
 }
 
 // External Interrupt 3 service routine
-ISR(INT3_vect)//interrupt [EXT_INT3] void ext_int3_isr(void)
+ISR(INT3_vect) //interrupt [EXT_INT3] void ext_int3_isr(void)
 {
 #define SONAR_NUM 		3
 #define SONAR_PIN_REG 	PIND
@@ -204,7 +192,7 @@ ISR(INT3_vect)//interrupt [EXT_INT3] void ext_int3_isr(void)
 }
 
 // External Interrupt 4 service routine
-ISR(INT4_vect)//interrupt [EXT_INT4] void ext_int4_isr(void)
+ISR(INT4_vect) //interrupt [EXT_INT4] void ext_int4_isr(void)
 {
 #define SONAR_NUM 		4
 #define SONAR_PIN_REG 	PINE
@@ -220,7 +208,7 @@ ISR(INT4_vect)//interrupt [EXT_INT4] void ext_int4_isr(void)
 }
 
 // External Interrupt 5 service routine
-ISR(INT5_vect)//interrupt [EXT_INT5] void ext_int5_isr(void)
+ISR(INT5_vect) //interrupt [EXT_INT5] void ext_int5_isr(void)
 {
 #define SONAR_NUM 		5
 #define SONAR_PIN_REG 	PINE
@@ -236,7 +224,7 @@ ISR(INT5_vect)//interrupt [EXT_INT5] void ext_int5_isr(void)
 }
 
 // External Interrupt 6 service routine
-ISR(INT6_vect)//interrupt [EXT_INT6] void ext_int6_isr(void)
+ISR(INT6_vect) //interrupt [EXT_INT6] void ext_int6_isr(void)
 {
 #define SONAR_NUM 		6
 #define SONAR_PIN_REG 	PINE
@@ -252,7 +240,7 @@ ISR(INT6_vect)//interrupt [EXT_INT6] void ext_int6_isr(void)
 }
 
 // External Interrupt 7 service routine
-ISR(INT7_vect)//interrupt [EXT_INT7] void ext_int7_isr(void)
+ISR(INT7_vect) //interrupt [EXT_INT7] void ext_int7_isr(void)
 {
 #define SONAR_NUM 		7
 #define SONAR_PIN_REG 	PINE
@@ -268,10 +256,10 @@ ISR(INT7_vect)//interrupt [EXT_INT7] void ext_int7_isr(void)
 }
 
 // Timer1 input capture interrupt service routine
-ISR(TIMER1_CAPT_vect)//interrupt [TIM1_CAPT] void timer1_capt_isr(void)
+ISR(TIMER1_CAPT_vect) //interrupt [TIM1_CAPT] void timer1_capt_isr(void)
 {
 	TRIGGER_ON;
-	for(unsigned char i = 0; i< SONARS_COUNT; i++)
+	for (unsigned char i = 0; i < SONARS_COUNT; i++)
 	{
 		flag[i] = false;
 		timerLast[i] = 0;
@@ -284,7 +272,7 @@ ISR(TIMER1_CAPT_vect)//interrupt [TIM1_CAPT] void timer1_capt_isr(void)
 }
 
 // Timer1 output compare A interrupt service routine
-ISR(TIMER1_COMPA_vect)//interrupt [TIM1_COMPA] void timer1_compa_isr(void)
+ISR(TIMER1_COMPA_vect) //interrupt [TIM1_COMPA] void timer1_compa_isr(void)
 {
 	TRIGGER_OFF;
 }
@@ -306,21 +294,24 @@ void setupTimer()
 	// Compare A Match Interrupt: On
 	// Compare B Match Interrupt: Off
 	// Compare C Match Interrupt: Off
-	TCCR1A=(0<<COM1A1) | (0<<COM1A0) | (0<<COM1B1) | (0<<COM1B0) | (0<<COM1C1) | (0<<COM1C0) | (0<<WGM11) | (0<<WGM10);
-	TCCR1B=(0<<ICNC1) | (0<<ICES1) | (1<<WGM13) | (1<<WGM12) | (0<<CS12) | (1<<CS11) | (1<<CS10);
-	TCNT1H=0x00;
-	TCNT1L=0x00;
-	ICR1H=0x3A;
-	ICR1L=0x97;
-	OCR1AH=0x00;
-	OCR1AL=3;//0x03;
-	OCR1BH=0x00;
-	OCR1BL=0x00;
-	OCR1CH=0x00;
-	OCR1CL=0x00;
+	TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (0 << COM1B1) | (0 << COM1B0)
+			| (0 << COM1C1) | (0 << COM1C0) | (0 << WGM11) | (0 << WGM10);
+	TCCR1B = (0 << ICNC1) | (0 << ICES1) | (1 << WGM13) | (1 << WGM12)
+			| (0 << CS12) | (1 << CS11) | (1 << CS10);
+	TCNT1H = 0x00;
+	TCNT1L = 0x00;
+	ICR1H = 0x3A;
+	ICR1L = 0x97;
+	OCR1AH = 0x00;
+	OCR1AL = 3;	//0x03;
+	OCR1BH = 0x00;
+	OCR1BL = 0x00;
+	OCR1CH = 0x00;
+	OCR1CL = 0x00;
 
 	// Timer/Counter 1 Interrupt(s) initialization
-	TIMSK1=(1<<ICIE1) | (0<<OCIE1C) | (0<<OCIE1B) | (1<<OCIE1A) | (0<<TOIE1);
+	TIMSK1 = (1 << ICIE1) | (0 << OCIE1C) | (0 << OCIE1B) | (1 << OCIE1A)
+			| (0 << TOIE1);
 }
 
 void setupExtInt()
@@ -342,10 +333,14 @@ void setupExtInt()
 	// INT6 Mode: Any change
 	// INT7: On
 	// INT7 Mode: Any change
-	EICRA=(0<<ISC31) | (1<<ISC30) | (0<<ISC21) | (1<<ISC20) | (0<<ISC11) | (1<<ISC10) | (0<<ISC01) | (1<<ISC00);
-	EICRB=(0<<ISC71) | (1<<ISC70) | (0<<ISC61) | (1<<ISC60) | (0<<ISC51) | (1<<ISC50) | (0<<ISC41) | (1<<ISC40);
-	EIMSK=(1<<INT7) | (1<<INT6) | (1<<INT5) | (1<<INT4) | (1<<INT3) | (1<<INT2) | (1<<INT1) | (1<<INT0);
-	EIFR=(1<<INTF7) | (1<<INTF6) | (1<<INTF5) | (1<<INTF4) | (1<<INTF3) | (1<<INTF2) | (1<<INTF1) | (1<<INTF0);
+	EICRA = (0 << ISC31) | (1 << ISC30) | (0 << ISC21) | (1 << ISC20)
+			| (0 << ISC11) | (1 << ISC10) | (0 << ISC01) | (1 << ISC00);
+	EICRB = (0 << ISC71) | (1 << ISC70) | (0 << ISC61) | (1 << ISC60)
+			| (0 << ISC51) | (1 << ISC50) | (0 << ISC41) | (1 << ISC40);
+	EIMSK = (1 << INT7) | (1 << INT6) | (1 << INT5) | (1 << INT4) | (1 << INT3)
+			| (1 << INT2) | (1 << INT1) | (1 << INT0);
+	EIFR = (1 << INTF7) | (1 << INTF6) | (1 << INTF5) | (1 << INTF4)
+			| (1 << INTF3) | (1 << INTF2) | (1 << INTF1) | (1 << INTF0);
 	// PCINT0 interrupt: On
 	// PCINT1 interrupt: On
 	// PCINT2 interrupt: On
@@ -370,13 +365,14 @@ void setupExtInt()
 	// PCINT21 interrupt: Off
 	// PCINT22 interrupt: Off
 	// PCINT23 interrupt: Off
-	PCMSK0=(1<<PCINT7) | (1<<PCINT6) | (1<<PCINT5) | (1<<PCINT4) | (1<<PCINT3) | (1<<PCINT2) | (1<<PCINT1) | (1<<PCINT0);
-	PCMSK1=(1<<PCINT15) | (1<<PCINT14) | (1<<PCINT13) | (1<<PCINT12) | (1<<PCINT11) | (1<<PCINT10) | (1<<PCINT9) | (1<<PCINT8);
-	PCMSK2=0;//(0<<PCINT23) | (0<<PCINT22) | (0<<PCINT21) | (0<<PCINT20) | (0<<PCINT19) | (0<<PCINT18) | (0<<PCINT17) | (0<<PCINT16);
-	PCICR=(0<<2) | (1<<PCIE1) | (1<<PCIE0);
+	PCMSK0 = (1 << PCINT7) | (1 << PCINT6) | (1 << PCINT5) | (1 << PCINT4)
+			| (1 << PCINT3) | (1 << PCINT2) | (1 << PCINT1) | (1 << PCINT0);
+	PCMSK1 = (1 << PCINT15) | (1 << PCINT14) | (1 << PCINT13) | (1 << PCINT12)
+			| (1 << PCINT11) | (1 << PCINT10) | (1 << PCINT9) | (1 << PCINT8);
+	PCMSK2 = 0;	//(0<<PCINT23) | (0<<PCINT22) | (0<<PCINT21) | (0<<PCINT20) | (0<<PCINT19) | (0<<PCINT18) | (0<<PCINT17) | (0<<PCINT16);
+	PCICR = (0 << 2) | (1 << PCIE1) | (1 << PCIE0);
 
 }
-
 
 int main()
 {
@@ -389,7 +385,7 @@ int main()
 
 	mainPort("Hello!\r\n");
 
-	while(true)
+	while (true)
 	{
 		_delay_ms(300);
 
