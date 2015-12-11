@@ -55,17 +55,19 @@ ISR(UART_TX_INT_VEC)
 	mainPort.tx_byte_int();
 }
 
-void sendData(UART & port, const char* pin, unsigned int distance)
+void sendData(UART & port, const char* pin, uint16_t distance)
 {
 #ifndef STR_VAL
-	char buff[8] =
+	unsigned char buff[8] =
 	{ '$', 'P' };
 	for (unsigned char i = 1; i < 3; i++)
 		buff[i + 1] = pin[i];
-	*(unsigned short int *) (buff + 4) = distance;
-	for (char i = 0; i < 6; i++)
+	buff[4] = distance & 0xff;
+	buff[5] = (distance >> 8) & 0xff;
+	for (uint8_t i = 0; i < 6; i++)
 		buff[6] ^= buff[i];
 	buff[7] = 0;
+	port.WriteCOM(8, buff);
 #else
 	char buff[14] =
 	{	'P'};
@@ -77,8 +79,8 @@ void sendData(UART & port, const char* pin, unsigned int distance)
 	buff[buffLen] = ' ';
 	buff[buffLen+1] = ' ';
 	buff[buffLen+2] = 0;
-#endif
 	port(buff);
+#endif
 }
 
 #define SONARS_COUNT 24
