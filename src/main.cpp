@@ -42,6 +42,10 @@
 #define ARDU_LED_OFF	ARDU_LED_PORT &=~ (1<<ARDU_LED_PIN)
 #define ARDU_LED_ON 	ARDU_LED_PORT |= (1<<ARDU_LED_PIN)
 
+#define SONARS_COUNT 30
+uint8_t flag[SONARS_COUNT];
+unsigned int timerLast[SONARS_COUNT];
+
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
 
 ISR(UART_RX_INT_VEC)
@@ -82,10 +86,6 @@ void sendData(UART & port, const char* pin, uint16_t distance)
 #endif
 }
 
-#define SONARS_COUNT 16
-bool flag[SONARS_COUNT];
-unsigned int timerLast[SONARS_COUNT];
-
 #define SONAR_ROUTINE_HANDLER sonarRoutineHandler(TIMER, \
 		timerLast[SONAR_NUM], \
 		SONAR_PIN_REG, \
@@ -96,24 +96,66 @@ unsigned int timerLast[SONARS_COUNT];
 
 inline void sonarRoutineHandler(unsigned int timerCurr,
 		unsigned int & timerLast, volatile unsigned char pin, char pinNum,
-		bool & flag, UART & port, const char * portName)
+		uint8_t & flag, UART & port, const char * portName)
 {
-	#define TM_PERIOD_MS 4
-	if (pin & (1 << pinNum))
+#define TM_PERIOD_MS 4
+	if ((pin & (1 << pinNum)) && (flag == false))
 	{
 		timerLast = timerCurr;
 		flag = true;
 	}
-	else if (flag)
+	else if (flag == true)
 	{
 		unsigned int distance = timerCurr - timerLast;
 		distance /= ((double) 58 / TM_PERIOD_MS);
 		sendData(port, portName, distance);
-		flag = false;
+		flag = -1;
 	}
 
-	//cli();
+}
+
+inline void pcIntRoutineHandler(volatile uint8_t & PINx, uint8_t numStart,
+		uint8_t & lastSnapPCint)
+{
+	cli();
+	uint8_t currSnapPCint = 0, currTimerVal = 0;
+
+	currSnapPCint = PINx;
+	currTimerVal = TIM_VAL;
 	//sei();
+
+	uint8_t xorByte = currSnapPCint ^ lastSnapPCint;
+	lastSnapPCint = currSnapPCint;
+
+	uint8_t pinNum = 0;
+	for (; pinNum <= 8; pinNum++, xorByte >>= 1)
+		if ((xorByte & 0x01) == 0x01)
+			break;
+
+	if (pinNum >= 8)
+	{
+		sei();
+		return;
+	}
+
+	char nameBuff[5];
+	sprintf(nameBuff, "SR%d", pinNum + numStart);
+
+#define SONAR_NUM 		(pinNum + numStart)
+#define SONAR_PIN_REG 	currSnapPCint
+#define SONAR_PIN_NUM 	pinNum
+#define SONAR_NAME 		nameBuff
+#define TIMER 			currTimerVal
+
+	SONAR_ROUTINE_HANDLER;
+
+#undef SONAR_NUM
+#undef SONAR_PIN_REG
+#undef SONAR_PIN_NUM
+#undef SONAR_NAME
+#undef TIMER
+
+	sei();
 }
 
 // Pin change 0-7 interrupt service routine
@@ -122,44 +164,11 @@ ISR(PCINT0_vect) //interrupt [PC_INT0] void pin_change_isr0(void)
 #define PCINT_PIN PINB
 #define PCINT_NUM_START 2
 
-	static uint8_t lastSnapPCint = 0, currSnapPCint = 0, currTimerVal = 0;
-
-	cli();
-	currSnapPCint = PCINT_PIN;
-	currTimerVal = TIM_VAL;
-	sei();
-
-	uint8_t xorByte = currSnapPCint ^ lastSnapPCint;
-	lastSnapPCint = currSnapPCint;
-
-	uint8_t pinNum = 0;
-	for (; pinNum <= 8; pinNum++, xorByte >>= 1)
-		if ((xorByte & 0x01) == 0x01)
-			break;
-
-	if (pinNum >= 8)
-		return;
-
-	char nameBuff[5];
-	sprintf(nameBuff, "SR%d", pinNum + PCINT_NUM_START);
-
-#define SONAR_NUM 		(pinNum + PCINT_NUM_START)
-#define SONAR_PIN_REG 	currSnapPCint
-#define SONAR_PIN_NUM 	pinNum
-#define SONAR_NAME 		nameBuff
-#define TIMER 			currTimerVal
-
-	SONAR_ROUTINE_HANDLER;
-
-#undef SONAR_NUM
-#undef SONAR_PIN_REG
-#undef SONAR_PIN_NUM
-#undef SONAR_NAME
-#undef TIMER
+	static uint8_t lastSnapPCint = 0;
+	pcIntRoutineHandler(PCINT_PIN, PCINT_NUM_START, lastSnapPCint);
 
 #undef PCINT_PIN
 #undef PCINT_NUM_START
-
 }
 
 // Pin change 8-15 interrupt service routine
@@ -168,44 +177,11 @@ ISR(PCINT1_vect) //interrupt [PC_INT1] void pin_change_isr1(void)
 #define PCINT_PIN PINC
 #define PCINT_NUM_START 10
 
-	static uint8_t lastSnapPCint = 0, currSnapPCint = 0, currTimerVal = 0;
-
-	cli();
-	currSnapPCint = PCINT_PIN;
-	currTimerVal = TIM_VAL;
-	sei();
-
-	uint8_t xorByte = currSnapPCint ^ lastSnapPCint;
-	lastSnapPCint = currSnapPCint;
-
-	uint8_t pinNum = 0;
-	for (; pinNum <= 8; pinNum++, xorByte >>= 1)
-		if ((xorByte & 0x01) == 0x01)
-			break;
-
-	if (pinNum >= 8)
-		return;
-
-	char nameBuff[5];
-	sprintf(nameBuff, "SR%d", pinNum + PCINT_NUM_START);
-
-#define SONAR_NUM 		(pinNum + PCINT_NUM_START)
-#define SONAR_PIN_REG 	currSnapPCint
-#define SONAR_PIN_NUM 	pinNum
-#define SONAR_NAME 		nameBuff
-#define TIMER 			currTimerVal
-
-	SONAR_ROUTINE_HANDLER;
-
-#undef SONAR_NUM
-#undef SONAR_PIN_REG
-#undef SONAR_PIN_NUM
-#undef SONAR_NAME
-#undef TIMER
+	static uint8_t lastSnapPCint = 0;
+	pcIntRoutineHandler(PCINT_PIN, PCINT_NUM_START, lastSnapPCint);
 
 #undef PCINT_PIN
 #undef PCINT_NUM_START
-
 }
 
 // External Interrupt 0 service routine
@@ -243,8 +219,6 @@ ISR(INT1_vect) //interrupt [EXT_INT1] void ext_int1_isr(void)
 #undef SONAR_NAME
 #undef TIMER
 }
-
-// External Interrupt 2 service routine
 
 // Timer1 input capture interrupt service routine
 ISR(TIMER1_CAPT_vect) //interrupt [TIM1_CAPT] void timer1_capt_isr(void)
