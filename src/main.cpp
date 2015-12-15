@@ -159,7 +159,7 @@ inline void pcIntRoutineHandler(volatile uint8_t & PINx, uint8_t numStart,
 }
 
 // Pin change 0-7 interrupt service routine
-ISR(PCINT0_vect) //interrupt [PC_INT0] void pin_change_isr0(void)
+ISR(PCINT0_vect)
 {
 #define PCINT_PIN PINB
 #define PCINT_NUM_START 2
@@ -172,7 +172,7 @@ ISR(PCINT0_vect) //interrupt [PC_INT0] void pin_change_isr0(void)
 }
 
 // Pin change 8-15 interrupt service routine
-ISR(PCINT1_vect) //interrupt [PC_INT1] void pin_change_isr1(void)
+ISR(PCINT1_vect)
 {
 #define PCINT_PIN PINC
 #define PCINT_NUM_START 10
@@ -185,7 +185,7 @@ ISR(PCINT1_vect) //interrupt [PC_INT1] void pin_change_isr1(void)
 }
 
 // External Interrupt 0 service routine
-ISR(INT0_vect) //interrupt [EXT_INT0] void ext_int0_isr(void)
+ISR(INT0_vect)
 {
 #define SONAR_NUM 		0
 #define SONAR_PIN_REG 	PIND
@@ -203,7 +203,7 @@ ISR(INT0_vect) //interrupt [EXT_INT0] void ext_int0_isr(void)
 }
 
 // External Interrupt 1 service routine
-ISR(INT1_vect) //interrupt [EXT_INT1] void ext_int1_isr(void)
+ISR(INT1_vect)
 {
 #define SONAR_NUM 		1
 #define SONAR_PIN_REG 	PIND
@@ -221,7 +221,7 @@ ISR(INT1_vect) //interrupt [EXT_INT1] void ext_int1_isr(void)
 }
 
 // Timer1 input capture interrupt service routine
-ISR(TIMER1_CAPT_vect) //interrupt [TIM1_CAPT] void timer1_capt_isr(void)
+ISR(TIMER1_CAPT_vect)
 {
 	for (unsigned char i = 0; i < SONARS_COUNT; i++)
 	{
