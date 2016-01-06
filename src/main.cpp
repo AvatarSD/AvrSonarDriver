@@ -7,7 +7,7 @@
 
 #include "init/init.h"
 #include "UART/UART.h"
-//#include "ADC/Analog.h"
+#include "ADC/Analog.h"
 #include "avr/interrupt.h"
 #include "avr/io.h"
 #include "util/delay.h"
@@ -24,6 +24,7 @@
 #define TRIGGER_PORT 	PORTD
 #define TRIGGER_DDR 	DDRD
 #define TRIGGER_PIN_NUM	7
+#define MAX_ADC_DATA	1000
 #define STR_VAL
 /***************************/
 
@@ -109,9 +110,9 @@ inline void sonarRoutineHandler(uint16_t timerCurr, uint16_t & timerLast,
 	{
 		unsigned int distance = timerCurr - timerLast;
 		distance /= ((double) 58 / TM_PERIOD_MS);
-		cli();
+		//cli();
 		sendData(port, portName, distance);
-		sei();
+		//sei();
 		flag = -1;
 	}
 
@@ -212,12 +213,24 @@ ISR(TIMER1_CAPT_vect)
 		flag[i] = false;
 		timerLast[i] = 0;
 	}
-	TRIGGER_ON;
 
 #ifdef STR_VAL
 	ARDU_LED_TOGGLE;
 	mainPort("\r\n");
+#else
+	static uint16_t counter;
+	sendData(mainPort, "SRB", counter++);
 #endif
+
+	TRIGGER_ON;
+
+	char buf[LAST_ADC_INPUT - FIRST_ADC_INPUT + 1];
+	for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
+	{
+		sprintf(buf, "OP&d", i);
+		if (analog[i] < MAX_ADC_DATA)
+			sendData(mainPort, buf, analog[i]);
+	}
 }
 
 // Timer1 output compare A interrupt service routine
