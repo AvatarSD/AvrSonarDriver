@@ -24,7 +24,7 @@
 #define TRIGGER_PORT 	PORTD
 #define TRIGGER_DDR 	DDRD
 #define TRIGGER_PIN_NUM	7
-#define STR_VAL
+//#define STR_VAL
 /***************************/
 
 #define TIM_VAL TCNT1
@@ -138,8 +138,9 @@ inline void pcIntRoutineHandler(volatile uint8_t & PINx, uint8_t numStart,
 
 	uint8_t sonarNum = pinNum + numStart;
 
-	char nameBuff[5];
-	sprintf(nameBuff, "S%02d", sonarNum);
+	char nameBuff[4] = {'S', 'R', sonarNum, '\0'};
+	//sprintf(nameBuff, "S%02d", sonarNum);
+
 
 	sonarRoutineHandler(currTimerVal, timerLast[sonarNum], currSnapPCint,
 			pinNum, flag[sonarNum], mainPort, nameBuff);
@@ -178,7 +179,7 @@ ISR(INT0_vect)
 #define SONAR_NUM 		0
 #define SONAR_PIN_REG 	PIND
 #define SONAR_PIN_NUM 	2
-#define SONAR_NAME 		"S00"
+#define SONAR_NAME 		"SR\0"
 
 	SONAR_ROUTINE_HANDLER;
 
@@ -194,7 +195,7 @@ ISR(INT1_vect)
 #define SONAR_NUM 		1
 #define SONAR_PIN_REG 	PIND
 #define SONAR_PIN_NUM 	3
-#define SONAR_NAME 		"S01"
+#define SONAR_NAME 		"SR\1"
 
 	SONAR_ROUTINE_HANDLER;
 
