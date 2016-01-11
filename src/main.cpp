@@ -52,7 +52,7 @@ uint16_t timerLast[SONARS_COUNT];
 		SONAR_PIN_NUM, \
 		flag[SONAR_NUM], \
 		mainPort, \
-		SONAR_NAME)
+		SONAR_NUM)
 
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
 
@@ -66,26 +66,28 @@ ISR(UART_TX_INT_VEC)
 	mainPort.tx_byte_int();
 }
 
-inline void sendData(UART & port, const char* pin, uint16_t distance)
+inline void sendData(UART & port, const char* portName, uint8_t pinNum,
+		uint16_t distance)
 {
 #ifndef STR_VAL
 	unsigned char buff[8] =
-	{	'$'};
-	for (unsigned char i = 0; i < 3; i++)
-	buff[i + 1] = pin[i];
+	{ '$' };
+	buff[1] = portName[0];
+	buff[2] = portName[1];
+	buff[3] = pinNum;
 	buff[4] = distance & 0xff;
 	buff[5] = (distance >> 8) & 0xff;
 	for (uint8_t i = 0; i < 6; i++)
-	buff[6] ^= buff[i];
+		buff[6] ^= buff[i];
 	buff[7] = 0;
 	cli();
 	port.WriteCOM(8, buff);
 	sei();
 #else
 	char buff[20];
-	buff[0] = pin[0];
-	buff[1] = pin[1];
-	buff[2] = pin[2];
+	buff[0] = portName[0];
+	buff[1] = portName[1];
+	buff[2] = portName[2];
 	buff[3] = ' ';
 	sprintf(buff + 4, "%d    \t", distance);
 	cli();
@@ -94,9 +96,10 @@ inline void sendData(UART & port, const char* pin, uint16_t distance)
 #endif
 }
 
+
 inline void sonarRoutineHandler(uint16_t timerCurr, uint16_t & timerLast,
 		uint8_t pin, uint8_t pinNum, uint8_t & flag, UART & port,
-		const char * portName)
+		uint8_t sonarNum)
 {
 #define TM_PERIOD_MS 4
 
@@ -109,7 +112,7 @@ inline void sonarRoutineHandler(uint16_t timerCurr, uint16_t & timerLast,
 	{
 		unsigned int distance = timerCurr - timerLast;
 		distance /= ((double) 58 / TM_PERIOD_MS);
-		sendData(port, portName, distance);
+		sendData(port, "SR", sonarNum, distance);
 		flag = -1;
 	}
 
@@ -136,12 +139,12 @@ inline void pcIntRoutineHandler(volatile uint8_t & PINx, uint8_t numStart,
 
 	uint8_t sonarNum = pinNum + numStart;
 
-	char nameBuff[4] = {'S', 'R', sonarNum, '\0'};
+	//char nameBuff[4] = {'S', 'R', sonarNum, '\0'};
 	//sprintf(nameBuff, "S%02d", sonarNum);
 
 
 	sonarRoutineHandler(currTimerVal, timerLast[sonarNum], currSnapPCint,
-			pinNum, flag[sonarNum], mainPort, nameBuff);
+			pinNum, flag[sonarNum], mainPort, sonarNum);
 
 }
 
@@ -218,7 +221,7 @@ ISR(TIMER1_CAPT_vect)
 	mainPort("\r\n");
 #else
 	static uint16_t counter;
-	sendData(mainPort, "SB", counter++);
+	sendData(mainPort, "SB", 255,counter++);
 #endif
 }
 
