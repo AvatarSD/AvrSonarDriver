@@ -7,7 +7,7 @@
 
 #include "init/init.h"
 #include "UART/UART.h"
-#include "ADC/Analog.h"
+//#include "ADC/Analog.h"
 #include "avr/interrupt.h"
 #include "avr/io.h"
 #include "util/delay.h"
@@ -73,7 +73,6 @@ inline void sendData(UART & port, const char* portName, uint8_t pinNum,
 #ifndef STR_VAL
 	unsigned char buff[8] =
 	{ '$' };
-
 	buff[1] = portName[0];
 	buff[2] = portName[1];
 	buff[3] = pinNum;
@@ -142,9 +141,7 @@ inline void pcIntRoutineHandler(volatile uint8_t & PINx, uint8_t numStart,
 	uint8_t sonarNum = pinNum + numStart;
 
 	sonarRoutineHandler(currTimerVal, timerLast[sonarNum], currSnapPCint,
-
 			pinNum, flag[sonarNum], mainPort, sonarNum);
-
 
 }
 
@@ -210,20 +207,19 @@ ISR(TIMER1_CAPT_vect)
 		flag[i] = false;
 		timerLast[i] = 0;
 	}
+	TRIGGER_ON;
 
 #ifdef STR_VAL
 	ARDU_LED_TOGGLE;
 	mainPort("\r\n");
 #else
 	static uint16_t counter;
-	sendData(mainPort, "SB", 255, counter++);
+	sendData(mainPort, "SB", 255,counter++);
 #endif
 
-	TRIGGER_ON;
-
-	for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
-		if (analog[i] < MAX_ADC_DATA)
-			sendData(mainPort, "OP", i, analog[i]);
+//	for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
+//		if (analog[i] < MAX_ADC_DATA)
+//			sendData(mainPort, "OP", i, analog[i]);
 }
 
 // Timer1 output compare A interrupt service routine
