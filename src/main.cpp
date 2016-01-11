@@ -139,10 +139,6 @@ inline void pcIntRoutineHandler(volatile uint8_t & PINx, uint8_t numStart,
 
 	uint8_t sonarNum = pinNum + numStart;
 
-	//char nameBuff[4] = {'S', 'R', sonarNum, '\0'};
-	//sprintf(nameBuff, "S%02d", sonarNum);
-
-
 	sonarRoutineHandler(currTimerVal, timerLast[sonarNum], currSnapPCint,
 			pinNum, flag[sonarNum], mainPort, sonarNum);
 
@@ -180,14 +176,12 @@ ISR(INT0_vect)
 #define SONAR_NUM 		0
 #define SONAR_PIN_REG 	PIND
 #define SONAR_PIN_NUM 	2
-#define SONAR_NAME 		"SR\0"
 
 	SONAR_ROUTINE_HANDLER;
 
 #undef SONAR_NUM
 #undef SONAR_PIN_REG
 #undef SONAR_PIN_NUM
-#undef SONAR_NAME
 }
 
 // External Interrupt 1 service routine
@@ -196,14 +190,12 @@ ISR(INT1_vect)
 #define SONAR_NUM 		1
 #define SONAR_PIN_REG 	PIND
 #define SONAR_PIN_NUM 	3
-#define SONAR_NAME 		"SR\1"
 
 	SONAR_ROUTINE_HANDLER;
 
 #undef SONAR_NUM
 #undef SONAR_PIN_REG
 #undef SONAR_PIN_NUM
-#undef SONAR_NAME
 }
 
 // Timer1 input capture interrupt service routine
