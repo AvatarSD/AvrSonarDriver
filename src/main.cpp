@@ -53,7 +53,7 @@ uint16_t timerLast[SONARS_COUNT];
 		SONAR_PIN_NUM, \
 		flag[SONAR_NUM], \
 		mainPort, \
-		"SR", SONAR_NUM)
+		SONAR_NUM)
 
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
 
@@ -73,8 +73,9 @@ inline void sendData(UART & port, const char* portName, uint8_t pinNum,
 #ifndef STR_VAL
 	unsigned char buff[8] =
 	{ '$' };
-	for (unsigned char i = 0; i < 2; i++)
-		buff[i + 1] = portName[i];
+
+	buff[1] = portName[0];
+	buff[2] = portName[1];
 	buff[3] = pinNum;
 	buff[4] = distance & 0xff;
 	buff[5] = (distance >> 8) & 0xff;
@@ -97,9 +98,10 @@ inline void sendData(UART & port, const char* portName, uint8_t pinNum,
 #endif
 }
 
+
 inline void sonarRoutineHandler(uint16_t timerCurr, uint16_t & timerLast,
 		uint8_t pin, uint8_t pinNum, uint8_t & flag, UART & port,
-		const char * portName, uint8_t sonarNum)
+		uint8_t sonarNum)
 {
 #define TM_PERIOD_MS 4
 
@@ -112,7 +114,7 @@ inline void sonarRoutineHandler(uint16_t timerCurr, uint16_t & timerLast,
 	{
 		unsigned int distance = timerCurr - timerLast;
 		distance /= ((double) 58 / TM_PERIOD_MS);
-		sendData(port, portName, sonarNum, distance);
+		sendData(port, "SR", sonarNum, distance);
 		flag = -1;
 	}
 
@@ -140,7 +142,9 @@ inline void pcIntRoutineHandler(volatile uint8_t & PINx, uint8_t numStart,
 	uint8_t sonarNum = pinNum + numStart;
 
 	sonarRoutineHandler(currTimerVal, timerLast[sonarNum], currSnapPCint,
-			pinNum, flag[sonarNum], mainPort, "SR", sonarNum);
+
+			pinNum, flag[sonarNum], mainPort, sonarNum);
+
 
 }
 
@@ -182,7 +186,6 @@ ISR(INT0_vect)
 #undef SONAR_NUM
 #undef SONAR_PIN_REG
 #undef SONAR_PIN_NUM
-#undef SONAR_NAME
 }
 
 // External Interrupt 1 service routine
@@ -197,7 +200,6 @@ ISR(INT1_vect)
 #undef SONAR_NUM
 #undef SONAR_PIN_REG
 #undef SONAR_PIN_NUM
-#undef SONAR_NAME
 }
 
 // Timer1 input capture interrupt service routine
