@@ -66,7 +66,7 @@ ISR(UART_TX_INT_VEC)
 	mainPort.tx_byte_int();
 }
 
-void sendData(UART & port, const char* pin, uint16_t distance)
+inline void sendData(UART & port, const char* pin, uint16_t distance)
 {
 #ifndef STR_VAL
 	unsigned char buff[8] =
@@ -109,9 +109,7 @@ inline void sonarRoutineHandler(uint16_t timerCurr, uint16_t & timerLast,
 	{
 		unsigned int distance = timerCurr - timerLast;
 		distance /= ((double) 58 / TM_PERIOD_MS);
-		//cli();
 		sendData(port, portName, distance);
-		//sei();
 		flag = -1;
 	}
 
