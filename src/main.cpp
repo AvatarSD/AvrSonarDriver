@@ -109,9 +109,9 @@ inline void sonarRoutineHandler(uint16_t timerCurr, uint16_t & timerLast,
 	{
 		unsigned int distance = timerCurr - timerLast;
 		distance /= ((double) 58 / TM_PERIOD_MS);
-		cli();
+		//cli();
 		sendData(port, portName, distance);
-		sei();
+		//sei();
 		flag = -1;
 	}
 
@@ -218,6 +218,9 @@ ISR(TIMER1_CAPT_vect)
 #ifdef STR_VAL
 	ARDU_LED_TOGGLE;
 	mainPort("\r\n");
+#else
+	static uint16_t counter;
+	sendData(mainPort, "SB", counter++);
 #endif
 }
 
