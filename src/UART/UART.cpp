@@ -104,7 +104,7 @@ void UART::tx_byte_int()
 void UART::putch(char c)
 {
 	while (tx_counter == tx_buffer_size);
-	cli();
+	//cli();
 	if (tx_counter || ((*_ucsra & DATA_REGISTER_EMPTY)==0))
 	{
 		tx_buffer[tx_wr_index++]=c;
@@ -113,7 +113,7 @@ void UART::putch(char c)
 	}
 	else
 		*_udr=c;
-	sei();
+	//sei();
 }
 
 int  UART::WriteCOM(unsigned int outlen, unsigned char *outbuf)
