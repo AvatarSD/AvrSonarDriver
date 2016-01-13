@@ -27,8 +27,9 @@
 
 #define TIM_VAL TCNT1
 #define TIM_MAX 0xFFFF
-#define SONARS_COUNT 16
+uint8_t SONARS_COUNT = 4;
 volatile uint8_t sonarIter = 0;
+int8_t flag = 0;
 
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
 
@@ -55,9 +56,9 @@ inline void sendData(UART & port, const char* portName, uint8_t pinNum,
 	for (uint8_t i = 0; i < 6; i++)
 		buff[6] ^= buff[i];
 	buff[7] = 0;
-	cli();
+	//cli();
 	port.WriteCOM(8, buff);
-	sei();
+	//sei();
 }
 
 inline void sonarRoutineHandler(uint16_t timerCurr, bool pin, uint8_t sonarNum,
@@ -65,13 +66,17 @@ inline void sonarRoutineHandler(uint16_t timerCurr, bool pin, uint8_t sonarNum,
 {
 	static uint16_t timerLast;
 
-	if (pin)
+if ((pin) && (flag == 0))
+	{
 		timerLast = timerCurr;
-	else
+		flag = 1;
+	}
+	else if (flag == true)
 	{
 		unsigned int distance = timerCurr - timerLast;
 		distance /= ((double) 58 / 4);
 		sendData(port, "SR", sonarNum, distance);
+		flag = -1;
 		TIM_VAL = TIM_MAX;
 	}
 }
@@ -117,7 +122,9 @@ void trigOff(uint8_t pin)
 // External Interrupt 0 service routine
 ISR(INT0_vect)
 {
+	cli();
 	sonarRoutineHandler(TIM_VAL, (PIND & (1 << 2)), sonarIter, mainPort);
+	sei();
 }
 
 // Timer1 input capture interrupt service routine
@@ -126,7 +133,7 @@ ISR(TIMER1_CAPT_vect)
 	if (++sonarIter == SONARS_COUNT)
 	{
 		static uint16_t counter;
-		sendData(mainPort, "SB", 255, counter++);
+		sendData(mainPort, "SB", 200, counter++);
 		sonarIter = 0;
 	}
 	trigOn(sonarIter);
@@ -140,6 +147,7 @@ ISR(TIMER1_CAPT_vect)
 ISR(TIMER1_COMPA_vect)
 {
 	trigOff(sonarIter);
+	flag = 0;
 }
 
 void setupTimer()
@@ -194,12 +202,12 @@ void setupExtInt()
 //			| (1 << PCINT0);
 //	PCMSK1 = (1 << PCINT13) | (1 << PCINT12) | (1 << PCINT11) | (1 << PCINT10)
 //			| (1 << PCINT9) | (1 << PCINT8);
-	PCIFR = (0 << PCIF2) | (1 << PCIF1) | (1 << PCIF0);
+//	PCIFR = (0 << PCIF2) | (1 << PCIF1) | (1 << PCIF0);
 
-	PORTB = (1 << PORTB4) | (1 << PORTB3) | (1 << PORTB2) | (1 << PORTB1)
-			| (1 << PORTB0);
-	PORTC = (1 << PORTC5) | (1 << PORTC4) | (1 << PORTC3) | (1 << PORTC2)
-			| (1 << PORTC1) | (1 << PORTC0);
+//	PORTB = (1 << PORTB4) | (1 << PORTB3) | (1 << PORTB2) | (1 << PORTB1)
+//			| (1 << PORTB0);
+//	PORTC = (1 << PORTC5) | (1 << PORTC4) | (1 << PORTC3) | (1 << PORTC2)
+//			| (1 << PORTC1) | (1 << PORTC0);
 
 }
 
