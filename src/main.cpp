@@ -27,7 +27,7 @@
 
 #define TIM_VAL TCNT1
 #define TIM_MAX 0xFFFF
-#define SONARS_COUNT 18
+#define SONARS_COUNT 16
 volatile uint8_t sonarIter = 0;
 
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
@@ -78,12 +78,40 @@ inline void sonarRoutineHandler(uint16_t timerCurr, bool pin, uint8_t sonarNum,
 
 void trigOn(uint8_t pin)
 {
-	PORTD |= (1 << 7);
+	if (pin < 5)
+	{
+		DDRB |= (1 << pin);
+		PORTB |= (1 << pin);
+	}
+	else if (pin < 10)
+	{
+		DDRD |= (1 << (pin - 2));
+		PORTD |= (1 << (pin - 2));
+	}
+	else if (pin < 16)
+	{
+		DDRC |= (1 << (pin - 10));
+		PORTC |= (1 << (pin - 10));
+	}
 }
 
 void trigOff(uint8_t pin)
 {
-	PORTD &= ~(1 << 7);
+	if (pin < 5)
+	{
+		PORTB &= ~(1 << pin);
+		DDRB &= ~(1 << pin);
+	}
+	else if (pin < 10)
+	{
+		PORTD &= ~(1 << (pin - 2));
+		DDRD &= ~(1 << (pin - 2));
+	}
+	else if (pin < 16)
+	{
+		PORTC &= ~(1 << (pin - 10));
+		DDRC &= ~(1 << (pin - 10));
+	}
 }
 
 // External Interrupt 0 service routine
