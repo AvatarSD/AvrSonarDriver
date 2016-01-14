@@ -78,7 +78,7 @@ inline void sonarRoutineHandler(uint16_t timerCurr, bool pin, uint8_t sonarNum,
 		distance /= ((double) 58 / 4);
 		sendData(port, "SR", sonarNum, distance);
 		flag = -1;
-		TIM_VAL = TIM_MAX-200;
+		TIM_VAL = ICR1-200;
 	}
 }
 
@@ -179,14 +179,10 @@ void setupTimer()
 			| (0 << WGM11) | (0 << WGM10);
 	TCCR1B = (0 << ICNC1) | (0 << ICES1) | (1 << WGM13) | (1 << WGM12)
 			| (0 << CS12) | (1 << CS11) | (1 << CS10);
-	TCNT1H = 0x00;
-	TCNT1L = 0x00;
-	ICR1H = 0x3A;
-	ICR1L = 0x97;
-	OCR1AH = 0x00;
-	OCR1AL = 3;	//0x03;
-	OCR1BH = 0x00;
-	OCR1BL = 0x00;
+	TCNT1 = 0x0000;
+
+	ICR1 = 0x3A97;
+	OCR1A = 3;
 
 	// Timer/Counter 1 Interrupt(s) initialization
 	TIMSK1 = (1 << ICIE1) | (0 << OCIE1B) | (1 << OCIE1A) | (0 << TOIE1);
