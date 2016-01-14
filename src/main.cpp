@@ -21,13 +21,14 @@
 #define UART_RX_BUF 	32
 #define UART_RX_INT_VEC USART_RX_vect
 #define UART_TX_INT_VEC USART_TX_vect
+#define MAX_SONAR_COUNT 16
 //#define MAX_ADC_DATA	1000
 //#define STR_VAL
 /***************************/
 
 #define TIM_VAL TCNT1
 #define TIM_MAX 0xFFFF
-uint8_t SONARS_COUNT = 4;
+uint8_t sonarsCount;
 volatile uint8_t sonarIter = 0;
 int8_t flag = 0;
 
@@ -66,7 +67,7 @@ inline void sonarRoutineHandler(uint16_t timerCurr, bool pin, uint8_t sonarNum,
 {
 	static uint16_t timerLast;
 
-if ((pin) && (flag == 0))
+	if ((pin) && (flag == 0))
 	{
 		timerLast = timerCurr;
 		flag = 1;
@@ -77,60 +78,67 @@ if ((pin) && (flag == 0))
 		distance /= ((double) 58 / 4);
 		sendData(port, "SR", sonarNum, distance);
 		flag = -1;
-		TIM_VAL = TIM_MAX;
+		TIM_VAL = TIM_MAX-200;
 	}
 }
 
 void trigOn(uint8_t pin)
 {
 	if (pin < 5)
-	{
-		DDRB |= (1 << pin);
 		PORTB |= (1 << pin);
-	}
 	else if (pin < 10)
-	{
-		DDRD |= (1 << (pin - 2));
 		PORTD |= (1 << (pin - 2));
-	}
 	else if (pin < 16)
-	{
-		DDRC |= (1 << (pin - 10));
 		PORTC |= (1 << (pin - 10));
-	}
 }
 
 void trigOff(uint8_t pin)
 {
 	if (pin < 5)
-	{
 		PORTB &= ~(1 << pin);
-		DDRB &= ~(1 << pin);
-	}
 	else if (pin < 10)
-	{
 		PORTD &= ~(1 << (pin - 2));
-		DDRD &= ~(1 << (pin - 2));
-	}
 	else if (pin < 16)
-	{
 		PORTC &= ~(1 << (pin - 10));
-		DDRC &= ~(1 << (pin - 10));
-	}
+}
+
+void setSonarCount(uint8_t count)
+{
+	sonarsCount = count;
+	for (uint8_t pin = 0; pin < MAX_SONAR_COUNT; pin++)
+		if (pin >= count)
+		{
+			if (pin < 5)
+				DDRB &= ~(1 << pin);
+			else if (pin < 10)
+				DDRD &= ~(1 << (pin - 2));
+			else if (pin < 16)
+				DDRC &= ~(1 << (pin - 10));
+		}
+		else
+		{
+			if (pin < 5)
+				DDRB |= (1 << pin);
+			else if (pin < 10)
+				DDRD |= (1 << (pin - 2));
+			else if (pin < 16)
+				DDRC |= (1 << (pin - 10));
+		}
 }
 
 // External Interrupt 0 service routine
 ISR(INT0_vect)
 {
 	cli();
-	sonarRoutineHandler(TIM_VAL, (PIND & (1 << 2)), sonarIter, mainPort);
+	uint16_t timCurr = TIM_VAL;
+	sonarRoutineHandler(timCurr, (PIND & (1 << 2)), sonarIter, mainPort);
 	sei();
 }
 
 // Timer1 input capture interrupt service routine
 ISR(TIMER1_CAPT_vect)
 {
-	if (++sonarIter == SONARS_COUNT)
+	if (++sonarIter == sonarsCount)
 	{
 		static uint16_t counter;
 		sendData(mainPort, "SB", 200, counter++);
@@ -214,6 +222,7 @@ void setupExtInt()
 int main()
 {
 	init();
+	setSonarCount(4);
 	setupTimer();
 	setupExtInt();
 
