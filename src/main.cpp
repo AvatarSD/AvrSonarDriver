@@ -22,6 +22,7 @@
 #define UART_RX_INT_VEC USART_RX_vect
 #define UART_TX_INT_VEC USART_TX_vect
 #define MAX_SONAR_COUNT 16
+#define RELAX_TIME		20
 //#define MAX_ADC_DATA	1000
 //#define STR_VAL
 /***************************/
@@ -78,7 +79,7 @@ inline void sonarRoutineHandler(uint16_t timerCurr, bool pin, uint8_t sonarNum,
 		distance /= ((double) 58 / 4);
 		sendData(port, "SR", sonarNum, distance);
 		flag = -1;
-		TIM_VAL = ICR1-200;
+		TIM_VAL = ICR1-(RELAX_TIME*250);
 	}
 }
 
