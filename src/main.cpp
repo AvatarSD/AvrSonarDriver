@@ -66,41 +66,25 @@ inline void sendData(UART & port, const char* portName, uint8_t pinNum,
 	for (uint8_t i = 0; i < 6; i++)
 		buff[6] ^= buff[i];
 	buff[7] = 0;
-	//cli();
+	cli();
 	port.WriteCOM(8, buff);
-	//sei();
+	sei();
 }
 
-//inline void sonarRoutineHandler(uint16_t timerCurr, bool pin, uint8_t sonarNum,
-//		UART & port)
-//{
-//	static uint16_t timerLast;
-//
-//	if ((pin) && (flag == 0))
-//	{
-//		timerLast = timerCurr;
-//		flag = 1;
-//	}
-//	else if (flag == true)
-//	{
-//		unsigned int distance = timerCurr - timerLast;
-//		distance /= ((double) 58 / 4);
-//		sendData(port, "SR", sonarNum, distance);
-//		flag = -1;
-//		TIM_VAL = ICR1-(RELAX_TIME*250);
-//	}
-//}
 inline void sonarRoutineHandler(uint16_t timerCurr, bool pinState,
 		uint8_t sonarNum)
 {
 	static uint16_t timerLast[MAX_SONAR_COUNT];
 
-	if ((pinState) && (flag[sonarNum] == false))
+//	if(sonarIter != sonarNum)
+//		return;
+
+	if ((pinState) && (flag[sonarNum] == 0))
 	{
 		timerLast[sonarNum] = timerCurr;
-		flag[sonarNum] = true;
+		flag[sonarNum] = 1;
 	}
-	else if (flag[sonarNum] == true)
+	else if (flag[sonarNum] == 1)
 	{
 		unsigned int distance = timerCurr - timerLast[sonarNum];
 		distance /= ((double) 58 / 4);
@@ -125,9 +109,9 @@ inline void pcIntRoutineHandler(uint8_t currSnapPCint, uint8_t & lastSnapPCint,
 	if (pinNum >= 8)
 		return;
 
-	bool pinState = (currSnapPCint & (1 << pinNum));
+	bool pinState = ((currSnapPCint & (1 << pinNum)) >> pinNum);
 
-	sonarRoutineHandler(currTimerVal, pinState, pinNum);
+	sonarRoutineHandler(currTimerVal, pinState, pinNum + pinStart);
 
 }
 
@@ -135,8 +119,9 @@ inline void pcIntRoutineHandler(uint8_t currSnapPCint, uint8_t & lastSnapPCint,
 ISR(PCINT2_vect)
 {
 	cli();
-	uint8_t currSnapPCint = PINB;
+	uint8_t currSnapPCint = PIND;
 	uint16_t currTimerVal = TIM_VAL;
+
 
 	static uint8_t lastSnapPCint = 0;
 	pcIntRoutineHandler(currSnapPCint, lastSnapPCint, currTimerVal, 0);
@@ -147,52 +132,33 @@ void trigOn(uint8_t pin)
 {
 	if (pin < 6)
 		PORTB |= (1 << pin);
-//	else if (pin < 10)
-//		PORTD |= (1 << (pin - 2));
-//	else if (pin < 16)
-//		PORTC |= (1 << (pin - 10));
 }
 
 void trigOff(uint8_t pin)
 {
 	if (pin < 6)
 		PORTB &= ~(1 << pin);
-//	else if (pin < 10)
-//		PORTD &= ~(1 << (pin - 2));
-//	else if (pin < 16)
-//		PORTC &= ~(1 << (pin - 10));
 }
 
 void setSonarCount(uint8_t count)
 {
 	sonarsCount = count;
 	for (uint8_t pin = 0; pin < MAX_SONAR_COUNT; pin++)
-		if (pin >= count)
+		if (pin < 6)
 		{
-			if (pin < 6)
+			if (pin >= count)
 				DDRB &= ~(1 << pin);
-//			else if (pin < 10)
-//				DDRD &= ~(1 << (pin - 2));
-//			else if (pin < 16)
-//				DDRC &= ~(1 << (pin - 10));
-		}
-		else
-		{
-			if (pin < 6)
+			else
 				DDRB |= (1 << pin);
-//			else if (pin < 10)
-//				DDRD |= (1 << (pin - 2));
-//			else if (pin < 16)
-//				DDRC |= (1 << (pin - 10));
 		}
 }
 
-// External Interrupt 0 service routine
+//External Interrupt 0 service routine
 //ISR(INT0_vect)
 //{
 //	cli();
 //	uint16_t timCurr = TIM_VAL;
-//	sonarRoutineHandler(timCurr, (PIND & (1 << 2)), sonarIter, mainPort);
+//	sonarRoutineHandler(timCurr, (PIND & (1 << 2)), 0);
 //	sei();
 //}
 
@@ -252,30 +218,22 @@ void setupTimer()
 void setupExtInt()
 {
 	// External Interrupt(s) initialization
-	// INT0: On
-	// INT0 Mode: Any change
-	// INT1: On
-	// INT1 Mode: Any change
-	// Interrupt on any change on pins PCINT0-7: On
-	// Interrupt on any change on pins PCINT8-14: On
-	// Interrupt on any change on pins PCINT16-23: Off
-//	EICRA = (0 << ISC11) | (0 << ISC10) | (0 << ISC01) | (1 << ISC00);
-//	EIMSK = (0 << INT1) | (1 << INT0);
-//	EIFR = (0 << INTF1) | (1 << INTF0);
+	// INT0: Off
+	// INT1: Off
+	// Interrupt on any change on pins PCINT0-7: Off
+	// Interrupt on any change on pins PCINT8-14: Off
+	// Interrupt on any change on pins PCINT16-23: On
+	EICRA = (0 << ISC11) | (0 << ISC10) | (0 << ISC01) | (0 << ISC00);
+	EIMSK = (0 << INT1) | (0 << INT0);
 	PCICR = (1 << PCIE2) | (0 << PCIE1) | (0 << PCIE0);
-//	PCMSK0 = (1 << PCINT4) | (1 << PCINT3) | (1 << PCINT2) | (1 << PCINT1)
-//			| (1 << PCINT0);
-//	PCMSK1 = (1 << PCINT13) | (1 << PCINT12) | (1 << PCINT11) | (1 << PCINT10)
-//			| (1 << PCINT9) | (1 << PCINT8);
-		PCMSK2 = (1 << PCINT21) | (1 << PCINT20) | (1 << PCINT19) | (1 << PCINT18)
-				| (1 << PCINT22) | (1 << PCINT23);
+	PCMSK2 = (1 << PCINT23) | (1 << PCINT22) | (1 << PCINT21) | (1 << PCINT20)
+			| (1 << PCINT19) | (1 << PCINT18) | (0 << PCINT17) | (0 << PCINT16);
 	PCIFR = (1 << PCIF2) | (0 << PCIF1) | (0 << PCIF0);
 
-//	PORTB = (1 << PORTB4) | (1 << PORTB3) | (1 << PORTB2) | (1 << PORTB1)
-//			| (1 << PORTB0);
-//	PORTC = (1 << PORTC5) | (1 << PORTC4) | (1 << PORTC3) | (1 << PORTC2)
-//			| (1 << PORTC1) | (1 << PORTC0);
-
+//	EICRA=(0<<ISC11) | (0<<ISC10) | (0<<ISC01) | (1<<ISC00);
+//	EIMSK=(0<<INT1) | (1<<INT0);
+//	EIFR=(0<<INTF1) | (1<<INTF0);
+//	PCICR=(0<<PCIE2) | (0<<PCIE1) | (0<<PCIE0);
 }
 
 int main()
