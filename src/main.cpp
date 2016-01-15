@@ -21,7 +21,7 @@
 #define UART_RX_BUF 	32
 #define UART_RX_INT_VEC USART_RX_vect
 #define UART_TX_INT_VEC USART_TX_vect
-#define MAX_SONAR_COUNT 16
+#define MAX_SONAR_COUNT 6
 #define RELAX_TIME		20
 //#define MAX_ADC_DATA	1000
 //#define STR_VAL
@@ -31,10 +31,7 @@
 #define TIM_MAX 0xFFFF
 uint8_t sonarsCount;
 volatile uint8_t sonarIter = 0;
-int8_t flag = 0;
-
-uint8_t flag[SONARS_COUNT];
-uint16_t timerLast[SONARS_COUNT];
+uint8_t flag[MAX_SONAR_COUNT];
 
 #define SONAR_ROUTINE_HANDLER sonarRoutineHandler(TIM_VAL, \
 		timerLast[SONAR_NUM], \
@@ -93,30 +90,29 @@ inline void sendData(UART & port, const char* portName, uint8_t pinNum,
 //		TIM_VAL = ICR1-(RELAX_TIME*250);
 //	}
 //}
-inline void sonarRoutineHandler(uint16_t timerCurr, uint16_t & timerLast,
-		uint8_t pin, uint8_t pinNum, uint8_t & flag, UART & port,
+inline void sonarRoutineHandler(uint16_t timerCurr, bool pinState,
 		uint8_t sonarNum)
 {
-#define TM_PERIOD_MS 4
+	static uint16_t timerLast[MAX_SONAR_COUNT];
 
-	if ((pin & (1 << pinNum)) && (flag == false))
+	if ((pinState) && (flag[sonarNum] == false))
 	{
-		timerLast = timerCurr;
-		flag = true;
+		timerLast[sonarNum] = timerCurr;
+		flag[sonarNum] = true;
 	}
-	else if (flag == true)
+	else if (flag[sonarNum] == true)
 	{
-		unsigned int distance = timerCurr - timerLast;
-		distance /= ((double) 58 / TM_PERIOD_MS);
-		sendData(port, "SR", sonarNum, distance);
-		flag = -1;
+		unsigned int distance = timerCurr - timerLast[sonarNum];
+		distance /= ((double) 58 / 4);
+		sendData(mainPort, "SR", sonarNum, distance);
+		flag[sonarNum] = -1;
+		TIM_VAL = ICR1 - (RELAX_TIME * 250);
 	}
 
 }
 
-inline void pcIntRoutineHandler(uint8_t currSnapPCint,
-		uint16_t currTimerVal,
-		uint8_t & lastSnapPCint)
+inline void pcIntRoutineHandler(uint8_t currSnapPCint, uint8_t & lastSnapPCint,
+		uint16_t currTimerVal, uint8_t pinStart)
 {
 	uint8_t xorByte = currSnapPCint ^ lastSnapPCint;
 	lastSnapPCint = currSnapPCint;
@@ -129,43 +125,42 @@ inline void pcIntRoutineHandler(uint8_t currSnapPCint,
 	if (pinNum >= 8)
 		return;
 
-	sonarRoutineHandler(currTimerVal, timerLast[pinNum], currSnapPCint,
-			pinNum, flag[pinNum], mainPort, pinNum);
+	bool pinState = (currSnapPCint & (1 << pinNum));
+
+	sonarRoutineHandler(currTimerVal, pinState, pinNum);
 
 }
 
 // Pin change 0-7 interrupt service routine
 ISR(PCINT2_vect)
 {
-
 	cli();
 	uint8_t currSnapPCint = PINB;
 	uint16_t currTimerVal = TIM_VAL;
-	sei();
 
 	static uint8_t lastSnapPCint = 0;
-	pcIntRoutineHandler(PCINT_PIN, PCINT_NUM_START, lastSnapPCint);
-
+	pcIntRoutineHandler(currSnapPCint, lastSnapPCint, currTimerVal, 0);
+	sei();
 }
 
 void trigOn(uint8_t pin)
 {
-	if (pin < 5)
+	if (pin < 6)
 		PORTB |= (1 << pin);
-	else if (pin < 10)
-		PORTD |= (1 << (pin - 2));
-	else if (pin < 16)
-		PORTC |= (1 << (pin - 10));
+//	else if (pin < 10)
+//		PORTD |= (1 << (pin - 2));
+//	else if (pin < 16)
+//		PORTC |= (1 << (pin - 10));
 }
 
 void trigOff(uint8_t pin)
 {
-	if (pin < 5)
+	if (pin < 6)
 		PORTB &= ~(1 << pin);
-	else if (pin < 10)
-		PORTD &= ~(1 << (pin - 2));
-	else if (pin < 16)
-		PORTC &= ~(1 << (pin - 10));
+//	else if (pin < 10)
+//		PORTD &= ~(1 << (pin - 2));
+//	else if (pin < 16)
+//		PORTC &= ~(1 << (pin - 10));
 }
 
 void setSonarCount(uint8_t count)
@@ -174,32 +169,32 @@ void setSonarCount(uint8_t count)
 	for (uint8_t pin = 0; pin < MAX_SONAR_COUNT; pin++)
 		if (pin >= count)
 		{
-			if (pin < 5)
+			if (pin < 6)
 				DDRB &= ~(1 << pin);
-			else if (pin < 10)
-				DDRD &= ~(1 << (pin - 2));
-			else if (pin < 16)
-				DDRC &= ~(1 << (pin - 10));
+//			else if (pin < 10)
+//				DDRD &= ~(1 << (pin - 2));
+//			else if (pin < 16)
+//				DDRC &= ~(1 << (pin - 10));
 		}
 		else
 		{
-			if (pin < 5)
+			if (pin < 6)
 				DDRB |= (1 << pin);
-			else if (pin < 10)
-				DDRD |= (1 << (pin - 2));
-			else if (pin < 16)
-				DDRC |= (1 << (pin - 10));
+//			else if (pin < 10)
+//				DDRD |= (1 << (pin - 2));
+//			else if (pin < 16)
+//				DDRC |= (1 << (pin - 10));
 		}
 }
 
 // External Interrupt 0 service routine
-ISR(INT0_vect)
-{
-	cli();
-	uint16_t timCurr = TIM_VAL;
-	sonarRoutineHandler(timCurr, (PIND & (1 << 2)), sonarIter, mainPort);
-	sei();
-}
+//ISR(INT0_vect)
+//{
+//	cli();
+//	uint16_t timCurr = TIM_VAL;
+//	sonarRoutineHandler(timCurr, (PIND & (1 << 2)), sonarIter, mainPort);
+//	sei();
+//}
 
 // Timer1 input capture interrupt service routine
 ISR(TIMER1_CAPT_vect)
@@ -221,7 +216,7 @@ ISR(TIMER1_CAPT_vect)
 ISR(TIMER1_COMPA_vect)
 {
 	trigOff(sonarIter);
-	flag = 0;
+	flag[sonarIter] = 0;
 }
 
 void setupTimer()
@@ -264,15 +259,17 @@ void setupExtInt()
 	// Interrupt on any change on pins PCINT0-7: On
 	// Interrupt on any change on pins PCINT8-14: On
 	// Interrupt on any change on pins PCINT16-23: Off
-	EICRA = (0 << ISC11) | (0 << ISC10) | (0 << ISC01) | (1 << ISC00);
-	EIMSK = (0 << INT1) | (1 << INT0);
-	EIFR = (0 << INTF1) | (1 << INTF0);
-//	PCICR = (0 << PCIE2) | (1 << PCIE1) | (1 << PCIE0);
+//	EICRA = (0 << ISC11) | (0 << ISC10) | (0 << ISC01) | (1 << ISC00);
+//	EIMSK = (0 << INT1) | (1 << INT0);
+//	EIFR = (0 << INTF1) | (1 << INTF0);
+	PCICR = (1 << PCIE2) | (0 << PCIE1) | (0 << PCIE0);
 //	PCMSK0 = (1 << PCINT4) | (1 << PCINT3) | (1 << PCINT2) | (1 << PCINT1)
 //			| (1 << PCINT0);
 //	PCMSK1 = (1 << PCINT13) | (1 << PCINT12) | (1 << PCINT11) | (1 << PCINT10)
 //			| (1 << PCINT9) | (1 << PCINT8);
-//	PCIFR = (0 << PCIF2) | (1 << PCIF1) | (1 << PCIF0);
+		PCMSK2 = (1 << PCINT21) | (1 << PCINT20) | (1 << PCINT19) | (1 << PCINT18)
+				| (1 << PCINT22) | (1 << PCINT23);
+	PCIFR = (1 << PCIF2) | (0 << PCIF1) | (0 << PCIF0);
 
 //	PORTB = (1 << PORTB4) | (1 << PORTB3) | (1 << PORTB2) | (1 << PORTB1)
 //			| (1 << PORTB0);
