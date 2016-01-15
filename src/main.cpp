@@ -33,6 +33,17 @@ uint8_t sonarsCount;
 volatile uint8_t sonarIter = 0;
 int8_t flag = 0;
 
+uint8_t flag[SONARS_COUNT];
+uint16_t timerLast[SONARS_COUNT];
+
+#define SONAR_ROUTINE_HANDLER sonarRoutineHandler(TIM_VAL, \
+		timerLast[SONAR_NUM], \
+		SONAR_PIN_REG, \
+		SONAR_PIN_NUM, \
+		flag[SONAR_NUM], \
+		mainPort, \
+		SONAR_NUM)
+
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
 
 ISR(UART_RX_INT_VEC)
@@ -63,24 +74,78 @@ inline void sendData(UART & port, const char* portName, uint8_t pinNum,
 	//sei();
 }
 
-inline void sonarRoutineHandler(uint16_t timerCurr, bool pin, uint8_t sonarNum,
-		UART & port)
+//inline void sonarRoutineHandler(uint16_t timerCurr, bool pin, uint8_t sonarNum,
+//		UART & port)
+//{
+//	static uint16_t timerLast;
+//
+//	if ((pin) && (flag == 0))
+//	{
+//		timerLast = timerCurr;
+//		flag = 1;
+//	}
+//	else if (flag == true)
+//	{
+//		unsigned int distance = timerCurr - timerLast;
+//		distance /= ((double) 58 / 4);
+//		sendData(port, "SR", sonarNum, distance);
+//		flag = -1;
+//		TIM_VAL = ICR1-(RELAX_TIME*250);
+//	}
+//}
+inline void sonarRoutineHandler(uint16_t timerCurr, uint16_t & timerLast,
+		uint8_t pin, uint8_t pinNum, uint8_t & flag, UART & port,
+		uint8_t sonarNum)
 {
-	static uint16_t timerLast;
+#define TM_PERIOD_MS 4
 
-	if ((pin) && (flag == 0))
+	if ((pin & (1 << pinNum)) && (flag == false))
 	{
 		timerLast = timerCurr;
-		flag = 1;
+		flag = true;
 	}
 	else if (flag == true)
 	{
 		unsigned int distance = timerCurr - timerLast;
-		distance /= ((double) 58 / 4);
+		distance /= ((double) 58 / TM_PERIOD_MS);
 		sendData(port, "SR", sonarNum, distance);
 		flag = -1;
-		TIM_VAL = ICR1-(RELAX_TIME*250);
 	}
+
+}
+
+inline void pcIntRoutineHandler(uint8_t currSnapPCint,
+		uint16_t currTimerVal,
+		uint8_t & lastSnapPCint)
+{
+	uint8_t xorByte = currSnapPCint ^ lastSnapPCint;
+	lastSnapPCint = currSnapPCint;
+
+	uint8_t pinNum = 0;
+	for (; pinNum <= 8; pinNum++, xorByte >>= 1)
+		if ((xorByte & 0x01) == 0x01)
+			break;
+
+	if (pinNum >= 8)
+		return;
+
+	sonarRoutineHandler(currTimerVal, timerLast[pinNum], currSnapPCint,
+			pinNum, flag[pinNum], mainPort, pinNum);
+
+}
+
+// Pin change 0-7 interrupt service routine
+ISR(PCINT2_vect)
+{
+
+	cli();
+	uint8_t currSnapPCint = PINB;
+	uint16_t currTimerVal = TIM_VAL;
+	sei();
+
+	static uint8_t lastSnapPCint = 0;
+	pcIntRoutineHandler(PCINT_PIN, PCINT_NUM_START, lastSnapPCint);
+
 }
 
 void trigOn(uint8_t pin)
