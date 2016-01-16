@@ -90,41 +90,40 @@ inline void sonarRoutineHandler(uint16_t timerCurr, bool pinState,
 		distance /= ((double) 58 / 4);
 		sendData(mainPort, "SR", sonarNum, distance);
 		flag[sonarNum] = -1;
-		TIM_VAL = ICR1 - (RELAX_TIME * 250);
+		//TIM_VAL = ICR1 - (RELAX_TIME * 250);
 	}
 
 }
 
-inline void pcIntRoutineHandler(uint8_t currSnapPCint, uint8_t & lastSnapPCint,
-		uint16_t currTimerVal, uint8_t pinStart)
-{
-	uint8_t xorByte = currSnapPCint ^ lastSnapPCint;
-	lastSnapPCint = currSnapPCint;
-
-	uint8_t pinNum = 0;
-	for (; pinNum <= 8; pinNum++, xorByte >>= 1)
-		if ((xorByte & 0x01) == 0x01)
-			break;
-
-	if (pinNum >= 8)
-		return;
-
-	bool pinState = ((currSnapPCint & (1 << pinNum)) >> pinNum);
-
-	sonarRoutineHandler(currTimerVal, pinState, pinNum + pinStart);
-
-}
+//inline void pcIntRoutineHandler(uint8_t currSnapPCint, uint8_t & lastSnapPCint,
+//		uint16_t currTimerVal, uint8_t pinStart)
+//{
+//	uint8_t xorByte = currSnapPCint ^ lastSnapPCint;
+//	lastSnapPCint = currSnapPCint;
+//
+//	uint8_t pinNum = 0;
+//	for (; pinNum <= 8; pinNum++, xorByte >>= 1)
+//		if ((xorByte & 0x01) == 0x01)
+//			break;
+//
+//	if (pinNum >= 8)
+//		return;
+//
+//	bool pinState = ((currSnapPCint & (1 << pinNum)) >> pinNum);
+//
+//	sonarRoutineHandler(currTimerVal, pinState, pinNum + pinStart);
+//
+//}
 
 // Pin change 0-7 interrupt service routine
 ISR(PCINT2_vect)
 {
+
 	cli();
-	uint8_t currSnapPCint = PIND;
-	uint16_t currTimerVal = TIM_VAL;
+	bool currSnap = (PIND & (1 << (sonarIter + 2)));
+	uint16_t timCurr = TIM_VAL;
 
-
-	static uint8_t lastSnapPCint = 0;
-	pcIntRoutineHandler(currSnapPCint, lastSnapPCint, currTimerVal, 0);
+	sonarRoutineHandler(timCurr, currSnap, sonarIter);
 	sei();
 }
 
