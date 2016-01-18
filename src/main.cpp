@@ -21,33 +21,27 @@
 #define UART_RX_BUF 	32
 #define UART_RX_INT_VEC USART_RX_vect
 #define UART_TX_INT_VEC USART_TX_vect
-#define MAX_SONAR_COUNT 6
+#define MAX_SONAR_COUNT 6 // platform depended(lim for runtime reconfiguring)
+#define SONAR_COUNT 	2 // just for init
 #define RELAX_TIME		20
+#define TIM_MAX 0x3A97 // 0x3A97 - is 60ms period
 //#define MAX_ADC_DATA	1000
-//#define STR_VAL
 /***************************/
 
+/** platform depended **/
+#define MAX_SONAR_COUNT 6
+
 #define TIM_VAL TCNT1
-#define TIM_MAX 0xFFFF
 uint8_t sonarsCount;
 volatile uint8_t sonarIter = 0;
 uint8_t flag;
 
-#define SONAR_ROUTINE_HANDLER sonarRoutineHandler(TIM_VAL, \
-		timerLast[SONAR_NUM], \
-		SONAR_PIN_REG, \
-		SONAR_PIN_NUM, \
-		flag[SONAR_NUM], \
-		mainPort, \
-		SONAR_NUM)
 
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
-
 ISR(UART_RX_INT_VEC)
 {
 	mainPort.rx_byte_int();
 }
-
 ISR(UART_TX_INT_VEC)
 {
 	mainPort.tx_byte_int();
@@ -87,7 +81,9 @@ inline void sonarRoutineHandler(uint16_t timerCurr, bool pinState,
 		distance /= ((double) 58 / 4);
 		sendData(mainPort, "SR", sonarNum, distance);
 		flag = -1;
-		//TIM_VAL = ICR1 - (RELAX_TIME * 250);
+#ifdef RELAX_TIME
+		TIM_VAL = ICR1 - (RELAX_TIME * 250);
+#endif
 	}
 }
 
@@ -121,10 +117,10 @@ void setSonarCount(uint8_t count)
 {
 	sonarsCount = count;
 	for (uint8_t pin = 0; pin < MAX_SONAR_COUNT; pin++)
-		if (pin >= count)
-			DDRB &= ~(1 << pin);
-		else
+		if (pin < count)
 			DDRB |= (1 << pin);
+		else
+			DDRB &= ~(1 << pin);
 }
 
 //External Interrupt 0 service routine
@@ -182,7 +178,7 @@ void setupTimer()
 			| (0 << CS12) | (1 << CS11) | (1 << CS10);
 	TCNT1 = 0x0000;
 
-	ICR1 = 0x3A97;
+	ICR1 = TIM_MAX;
 	OCR1A = 3;
 
 	// Timer/Counter 1 Interrupt(s) initialization
@@ -213,7 +209,7 @@ void setupExtInt()
 int main()
 {
 	init();
-	setSonarCount(4);
+	setSonarCount(SONAR_COUNT);
 	setupTimer();
 	setupExtInt();
 
