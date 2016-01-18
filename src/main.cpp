@@ -31,7 +31,7 @@
 #define TIM_MAX 0xFFFF
 uint8_t sonarsCount;
 volatile uint8_t sonarIter = 0;
-uint8_t flag[MAX_SONAR_COUNT];
+uint8_t flag;
 
 #define SONAR_ROUTINE_HANDLER sonarRoutineHandler(TIM_VAL, \
 		timerLast[SONAR_NUM], \
@@ -74,56 +74,34 @@ inline void sendData(UART & port, const char* portName, uint8_t pinNum,
 inline void sonarRoutineHandler(uint16_t timerCurr, bool pinState,
 		uint8_t sonarNum)
 {
-	static uint16_t timerLast[MAX_SONAR_COUNT];
+	static uint16_t timerLast;
 
-//	if(sonarIter != sonarNum)
-//		return;
-
-	if ((pinState) && (flag[sonarNum] == 0))
+	if ((pinState) && (flag == 0))
 	{
-		timerLast[sonarNum] = timerCurr;
-		flag[sonarNum] = 1;
+		timerLast = timerCurr;
+		flag = 1;
 	}
-	else if (flag[sonarNum] == 1)
+	else if ((!pinState) && (flag == 1))
 	{
-		unsigned int distance = timerCurr - timerLast[sonarNum];
+		unsigned int distance = timerCurr - timerLast;
 		distance /= ((double) 58 / 4);
 		sendData(mainPort, "SR", sonarNum, distance);
-		flag[sonarNum] = -1;
+		flag = -1;
 		//TIM_VAL = ICR1 - (RELAX_TIME * 250);
 	}
-
 }
-
-//inline void pcIntRoutineHandler(uint8_t currSnapPCint, uint8_t & lastSnapPCint,
-//		uint16_t currTimerVal, uint8_t pinStart)
-//{
-//	uint8_t xorByte = currSnapPCint ^ lastSnapPCint;
-//	lastSnapPCint = currSnapPCint;
-//
-//	uint8_t pinNum = 0;
-//	for (; pinNum <= 8; pinNum++, xorByte >>= 1)
-//		if ((xorByte & 0x01) == 0x01)
-//			break;
-//
-//	if (pinNum >= 8)
-//		return;
-//
-//	bool pinState = ((currSnapPCint & (1 << pinNum)) >> pinNum);
-//
-//	sonarRoutineHandler(currTimerVal, pinState, pinNum + pinStart);
-//
-//}
 
 // Pin change 0-7 interrupt service routine
 ISR(PCINT2_vect)
 {
 
 	cli();
-	bool currSnap = (PIND & (1 << (sonarIter + 2)));
+	uint8_t currSnap = PIND;
 	uint16_t timCurr = TIM_VAL;
 
-	sonarRoutineHandler(timCurr, currSnap, sonarIter);
+	bool pinState = (currSnap & (1 << (sonarIter + 2)));
+
+	sonarRoutineHandler(timCurr, pinState, sonarIter);
 	sei();
 }
 
@@ -143,13 +121,10 @@ void setSonarCount(uint8_t count)
 {
 	sonarsCount = count;
 	for (uint8_t pin = 0; pin < MAX_SONAR_COUNT; pin++)
-		if (pin < 6)
-		{
-			if (pin >= count)
-				DDRB &= ~(1 << pin);
-			else
-				DDRB |= (1 << pin);
-		}
+		if (pin >= count)
+			DDRB &= ~(1 << pin);
+		else
+			DDRB |= (1 << pin);
 }
 
 //External Interrupt 0 service routine
@@ -181,7 +156,7 @@ ISR(TIMER1_CAPT_vect)
 ISR(TIMER1_COMPA_vect)
 {
 	trigOff(sonarIter);
-	flag[sonarIter] = 0;
+	flag = 0;
 }
 
 void setupTimer()
