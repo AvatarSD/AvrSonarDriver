@@ -22,7 +22,7 @@
 #define UART_RX_INT_VEC USART_RX_vect
 #define UART_TX_INT_VEC USART_TX_vect
 #define MAX_SONAR_COUNT 6 // platform depended(lim for runtime reconfiguring)
-#define SONAR_COUNT 	4 // just for init
+#define SONAR_COUNT 	2 // just for init
 #define RELAX_TIME		20
 #define TIM_MAX 0x3A97 // 0x3A97 - is 60ms period
 //#define MAX_ADC_DATA	1000
@@ -133,12 +133,13 @@ void setSonarCount(uint8_t count)
 ISR(TIMER1_CAPT_vect)
 {
 	if (++sonarIter == sonarsCount)
-	{
-		static uint16_t counter;
-		sendData(mainPort, "SB", 200, counter++);
 		sonarIter = 0;
-	}
+
 	trigOn(sonarIter);
+
+	static uint16_t counter;
+	if (sonarIter == 0)
+		sendData(mainPort, "SB", 200, counter++);
 
 //	for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
 //		if (analog[i] < MAX_ADC_DATA)
