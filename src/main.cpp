@@ -22,14 +22,11 @@
 #define UART_RX_INT_VEC USART_RX_vect
 #define UART_TX_INT_VEC USART_TX_vect
 #define MAX_SONAR_COUNT 6 // platform depended(lim for runtime reconfiguring)
-#define SONAR_COUNT 	2 // just for init
+#define SONAR_COUNT 	4 // just for init
 #define RELAX_TIME		20
 #define TIM_MAX 0x3A97 // 0x3A97 - is 60ms period
 //#define MAX_ADC_DATA	1000
 /***************************/
-
-/** platform depended **/
-#define MAX_SONAR_COUNT 6
 
 #define TIM_VAL TCNT1
 uint8_t sonarsCount;
