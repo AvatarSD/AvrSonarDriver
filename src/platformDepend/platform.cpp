@@ -1,14 +1,49 @@
 /*
- * init.cpp
+ * platformDepend.cpp
  *
- *  Created on: 21 жовт. 2015
+ *  Created on: 9 лют. 2016
  *      Author: sd
  */
 
-#include "init.h"
+#include "platform.h"
+
 #include <avr/io.h>
-//#include <avr/iom328.h>
-#include <util/atomic.h>
+#include <avr/interrupt.h>
+
+uint8_t sonarsCount;
+
+UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
+
+ISR(UART_RX_INT_VEC)
+{
+	mainPort.rx_byte_int();
+}
+ISR(UART_TX_INT_VEC)
+{
+	mainPort.tx_byte_int();
+}
+
+void trigOn(uint8_t pin)
+{
+	if (pin < 6)
+		PORTB |= (1 << pin);
+}
+
+void trigOff(uint8_t pin)
+{
+	if (pin < 6)
+		PORTB &= ~(1 << pin);
+}
+
+void setSonarCount(uint8_t count)
+{
+	sonarsCount = count;
+	for (uint8_t pin = 0; pin < MAX_SONAR_COUNT; pin++)
+		if (pin < count)
+			DDRB |= (1 << pin);
+		else
+			DDRB &= ~(1 << pin);
+}
 
 void init()
 {
@@ -91,3 +126,53 @@ void init()
 
 }
 
+void setupTimer()
+{
+	// Timer/Counter 1 initialization
+	// Clock source: System Clock
+	// Clock value: 250,000 kHz
+	// Mode: CTC top=ICR1
+	// OC1A output: Disconnected
+	// OC1B output: Disconnected
+	// OC1C output: Disconnected
+	// Noise Canceler: Off
+	// Input Capture on Falling Edge
+	// Timer Period: 60 ms
+	// Timer1 Overflow Interrupt: Off
+	// Input Capture Interrupt: On
+	// Compare A Match Interrupt: On
+	// Compare B Match Interrupt: Off
+	// Compare C Match Interrupt: Off
+	TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (0 << COM1B1) | (0 << COM1B0)
+			| (0 << WGM11) | (0 << WGM10);
+	TCCR1B = (0 << ICNC1) | (0 << ICES1) | (1 << WGM13) | (1 << WGM12)
+			| (0 << CS12) | (1 << CS11) | (1 << CS10);
+	TCNT1 = 0x0000;
+
+	ICR1 = TIM_MAX;
+	OCR1A = 3;
+
+	// Timer/Counter 1 Interrupt(s) initialization
+	TIMSK1 = (1 << ICIE1) | (0 << OCIE1B) | (1 << OCIE1A) | (0 << TOIE1);
+}
+
+void setupExtInt()
+{
+	// External Interrupt(s) initialization
+	// INT0: Off
+	// INT1: Off
+	// Interrupt on any change on pins PCINT0-7: Off
+	// Interrupt on any change on pins PCINT8-14: Off
+	// Interrupt on any change on pins PCINT16-23: On
+	EICRA = (0 << ISC11) | (0 << ISC10) | (0 << ISC01) | (0 << ISC00);
+	EIMSK = (0 << INT1) | (0 << INT0);
+	PCICR = (1 << PCIE2) | (0 << PCIE1) | (0 << PCIE0);
+	PCMSK2 = (1 << PCINT23) | (1 << PCINT22) | (1 << PCINT21) | (1 << PCINT20)
+			| (1 << PCINT19) | (1 << PCINT18) | (0 << PCINT17) | (0 << PCINT16);
+	PCIFR = (1 << PCIF2) | (0 << PCIF1) | (0 << PCIF0);
+
+//	EICRA=(0<<ISC11) | (0<<ISC10) | (0<<ISC01) | (1<<ISC00);
+//	EIMSK=(0<<INT1) | (1<<INT0);
+//	EIFR=(0<<INTF1) | (1<<INTF0);
+//	PCICR=(0<<PCIE2) | (0<<PCIE1) | (0<<PCIE0);
+}
