@@ -3,6 +3,9 @@
 #include <avr/interrupt.h>
 #include "platform.h"
 
+
+#include "../routine.h"
+
 // Pin change 0-7 interrupt service routine
 ISR(PCINT2_vect)
 {

@@ -8,6 +8,9 @@
 #ifndef PLATFORMDEPEND_PLATFORMDEPEND_H_
 #define PLATFORMDEPEND_PLATFORMDEPEND_H_
 
+#include <avr/io.h>
+#include "UART/UART.h"
+
 /********* Settings ********/
 #define UART_PORT 		UDR0
 #define UART_SPEED 		115200
