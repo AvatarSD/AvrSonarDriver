@@ -15,7 +15,7 @@
 #define RELAX_TIME		20
 
 volatile uint8_t sonarIter = 0;
-volatile uint8_t flag; //one enter - one exit pear timer cycle
+volatile uint8_t flag[MAX_SONAR_COUNT]; //one enter - one exit pear timer cycle
 
 void sonarPCintHandler(uint16_t timerCurr, uint8_t portState, uint8_t portNum)
 {
@@ -26,19 +26,19 @@ void sonarPCintHandler(uint16_t timerCurr, uint8_t portState, uint8_t portNum)
 
 void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum)
 {
-	static uint16_t timerLast;
+	static uint16_t timerLast[MAX_SONAR_COUNT];
 
-	if ((pinState) && (flag == 0))
+	if ((pinState) && (flag[sonarNum] == 0))
 	{
-		timerLast = timerCurr;
-		flag = 1;
+		timerLast[sonarNum] = timerCurr;
+		flag[sonarNum] = 1;
 	}
-	else if ((!pinState) && (flag == 1))
+	else if ((!pinState) && (flag[sonarNum] == 1))
 	{
-		unsigned int distance = timerCurr - timerLast;
+		unsigned int distance = timerCurr - timerLast[sonarNum];
 		distance /= ((double) 58 / 4);
 		sendData(mainPort, "SR", sonarNum, distance);
-		flag = -1;
+		flag[sonarNum] = -1;
 #ifdef RELAX_TIME
 		TIM_VAL = TIM_MAX - (RELAX_TIME * 250);
 #endif
@@ -64,6 +64,7 @@ void timTrigOnEvent()
 void timTrigOffEvent()
 {
 	trigOff(sonarIter);
-	flag = 0;
+	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
+		flag[i] = 0;
 }
 
