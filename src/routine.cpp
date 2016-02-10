@@ -55,6 +55,10 @@ void timTrigOnEvent()
 //			sendData(mainPort, "OP", i, analog[i]);
 }
 
+void sonarPCintHandler(uint16_t timerCurr, uint8_t portState, uint8_t portNum)
+{
+}
+
 void timTrigOffEvent()
 {
 	trigOff(sonarIter);
