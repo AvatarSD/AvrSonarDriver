@@ -14,10 +14,7 @@ ISR(PCINT2_vect)
 	uint16_t timCurr = TIM_VAL;
 	sei();
 
-	bool pinState = (currSnap & (1 << (sonarIter + 2)));
-
-	sonarRoutineHandler(timCurr, pinState, sonarIter);
-
+	sonarPCintHandler(timCurr, currSnap, 0);
 }
 
 

@@ -15,10 +15,16 @@
 #define RELAX_TIME		20
 
 volatile uint8_t sonarIter = 0;
-uint8_t flag; //one enter - one exit pear timer cycle
+volatile uint8_t flag; //one enter - one exit pear timer cycle
 
-void sonarRoutineHandler(uint16_t timerCurr, bool pinState,
-		uint8_t sonarNum)
+void sonarPCintHandler(uint16_t timerCurr, uint8_t portState, uint8_t portNum)
+{
+	bool pinState = (portState & (1 << (sonarIter + 2)));
+
+	sonarRoutineHandler(timerCurr, pinState, sonarIter);
+}
+
+void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum)
 {
 	static uint16_t timerLast;
 
@@ -53,10 +59,6 @@ void timTrigOnEvent()
 //	for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
 //		if (analog[i] < MAX_ADC_DATA)
 //			sendData(mainPort, "OP", i, analog[i]);
-}
-
-void sonarPCintHandler(uint16_t timerCurr, uint8_t portState, uint8_t portNum)
-{
 }
 
 void timTrigOffEvent()

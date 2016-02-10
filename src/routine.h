@@ -10,7 +10,6 @@
 
 #include "inttypes.h"
 
-extern volatile uint8_t sonarIter;
 void sonarPCintHandler(uint16_t timerCurr, uint8_t portState, uint8_t portNum);
 void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum);
 void timTrigOnEvent();
