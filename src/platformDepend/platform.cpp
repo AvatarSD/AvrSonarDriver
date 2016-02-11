@@ -206,14 +206,13 @@ uint8_t loadIterCount()
 	return eeprom_read_byte(&iterEepromc);
 }
 
-bool mapeeprom[MAX_ITERATIONS][MAX_SONAR_COUNT] EEMEM;
-//#define MAP_BYTE_SIZE ((MAX_ITERATIONS*MAX_SONAR_COUNT)/8 + (MAX_ITERATIONS*MAX_SONAR_COUNT)%8)
-void saveMap(const bool** map)
+bool mapeeprom[MAX_ITERATIONS*MAX_SONAR_COUNT] EEMEM;
+void saveMapEeprom(const bool * map)
 {
 	eeprom_write_block(map, mapeeprom, sizeof(map));
 }
 
-void getMap(bool** map)
+void loadMapEeprom(bool * map)
 {
 	eeprom_read_block(map, mapeeprom, sizeof(map));
 }

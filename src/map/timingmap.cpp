@@ -9,23 +9,25 @@
 #include "string.h"
 #include "../platformDepend/platform.h"
 
-
-bool timingMap[MAX_ITERATIONS][MAX_SONAR_COUNT];
-//=
-//{
-//{ 1, 0 },
-//{ 0, 1 },
-//{ 1, 1 } };
-
+bool timingMap[MAX_ITERATIONS * MAX_SONAR_COUNT];
 uint8_t iterationCount = 0;
 
-bool writeMap(bool ** map, uint8_t iterations, uint8_t sonars)
+bool getMapPosition(uint8_t iteration, uint8_t sonarNum)
 {
-	if(!((iterations < MAX_ITERATIONS)||(sonars < MAX_SONAR_COUNT)))
+	if ((iteration < iterationCount) && (iteration < MAX_ITERATIONS)
+			&& (sonarNum < getSonarCount()) && (sonarNum < MAX_SONAR_COUNT))
+		return timingMap[iteration * MAX_ITERATIONS + sonarNum];
+
+	return 0;
+}
+
+bool writeMap(const bool * map, uint8_t iterations, uint8_t sonars)
+{
+	if ((iterations > MAX_ITERATIONS) || (sonars > MAX_SONAR_COUNT))
 		return false;
-//	uint16_t size = iterations * sonars;
-//	size = size/8 + size%8;
-	memcpy(timingMap, map, sizeof(timingMap));
+	for (uint8_t i = 0; i < iterations; i++)
+		for (uint8_t s = 0; s < sonars; s++)
+			timingMap[i * MAX_ITERATIONS + s] = map[i * iterations + s];
 	iterationCount = iterations;
 	setSonarCount(sonars);
 	return true;
@@ -33,15 +35,15 @@ bool writeMap(bool ** map, uint8_t iterations, uint8_t sonars)
 
 void loadMap()
 {
-
+	loadMapEeprom(timingMap);
 }
 
 void saveMap()
 {
-
+	saveMapEeprom(timingMap);
 }
 
-//const bool ** getMap()
+//const bool * getMap()
 //{
 //	return timingMap;
 //}

@@ -7,7 +7,7 @@
 
 #include "routine.h"
 #include "uartport/uartport.h"
-#include "platformDepend/platform.h"
+#include "map/timingmap.h"
 
 //#include "ADC/Analog.h"
 //#define MAX_ADC_DATA	1000
@@ -47,10 +47,12 @@ void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum)
 
 void timTrigOnEvent()
 {
-	if (++sonarIter == sonarsCount)
+	if (++sonarIter == getSonarCount())
 		sonarIter = 0;
 
-	trigOn(sonarIter);
+	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
+		if (getMapPosition(sonarIter, i))
+			trigOn(i);
 
 	static uint16_t counter;
 	if (sonarIter == 0)
@@ -63,7 +65,9 @@ void timTrigOnEvent()
 
 void timTrigOffEvent()
 {
-	trigOff(sonarIter);
+	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
+		if (getMapPosition(sonarIter, i))
+			trigOff(i);
 	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
 		flag[i] = 0;
 }

@@ -38,8 +38,8 @@ void saveSonarCount();
 void loadSonarCount();
 void saveIterCount(uint8_t count);
 uint8_t loadIterCount();
-void saveMap(const bool ** map);
-void getMap(bool ** map);
+void saveMapEeprom(const bool * map);
+void loadMapEeprom(bool * map);
 
 
 #endif /* PLATFORMDEPEND_PLATFORMDEPEND_H_ */

@@ -11,16 +11,9 @@
 #include <inttypes.h>
 #include "../platformDepend/platform.h"
 
-bool getMapPosition(uint8_t iteration, uint8_t sonarNum)
-{
-	if ((iteration < iterationCount) && (iteration < MAX_ITERATIONS)
-			&& (sonarNum < getSonarCount()) && (sonarNum < MAX_SONAR_COUNT))
-		return timingMap[iteration][sonarNum];
-
-	return 0;
-}
-bool writeMap(bool ** map, uint8_t iterations, uint8_t sonars);
-//const bool ** getMap();
+bool getMapPosition(uint8_t iteration, uint8_t sonarNum);
+bool writeMap(const bool * map, uint8_t iterations, uint8_t sonars);
+//const bool * getMap();
 void loadMap();
 void saveMap();
 uint8_t getIterationCount();
