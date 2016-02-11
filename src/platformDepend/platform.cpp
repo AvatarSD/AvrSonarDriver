@@ -184,32 +184,36 @@ uint8_t getSonarCount()
 }
 
 
-
+uint8_t sonarsCountEeprom EEMEM;
 void saveSonarCount()
 {
+	eeprom_write_byte(&sonarsCountEeprom, getSonarCount());
 }
 
 void loadSonarCount()
 {
+	setSonarCount(eeprom_read_byte(&sonarsCountEeprom));
 }
 
 uint8_t iterEepromc EEMEM;
 void saveIterCount(uint8_t count)
 {
+	eeprom_write_byte(&iterEepromc, count);
 }
 
 uint8_t loadIterCount()
 {
+	return eeprom_read_byte(&iterEepromc);
 }
 
 bool mapeeprom[MAX_ITERATIONS][MAX_SONAR_COUNT] EEMEM;
-#define MAP_BYTE_SIZE ((MAX_ITERATIONS*MAX_SONAR_COUNT)/8 + (MAX_ITERATIONS*MAX_SONAR_COUNT)%8)
+//#define MAP_BYTE_SIZE ((MAX_ITERATIONS*MAX_SONAR_COUNT)/8 + (MAX_ITERATIONS*MAX_SONAR_COUNT)%8)
 void saveMap(const bool** map)
 {
-	eeprom_write_block(map, mapeeprom, MAP_BYTE_SIZE);
+	eeprom_write_block(map, mapeeprom, sizeof(map));
 }
 
 void getMap(bool** map)
 {
-	eeprom_read_block(map, mapeeprom, MAP_BYTE_SIZE);
+	eeprom_read_block(map, mapeeprom, sizeof(map));
 }

@@ -19,21 +19,13 @@ bool timingMap[MAX_ITERATIONS][MAX_SONAR_COUNT];
 
 uint8_t iterationCount = 0;
 
-bool getMapPosition(uint8_t iteration, uint8_t sonarNum)
-{
-	if ((iteration < iterationCount) && (iteration < MAX_ITERATIONS) &&
-			(sonarNum < getSonarCount()) && (sonarNum < MAX_SONAR_COUNT))
-		return timingMap[iteration][sonarNum];
-	return 0;
-}
-
 bool writeMap(bool ** map, uint8_t iterations, uint8_t sonars)
 {
 	if(!((iterations < MAX_ITERATIONS)||(sonars < MAX_SONAR_COUNT)))
 		return false;
-	uint16_t size = iterations * sonars;
-	size = size/8 + size%8;
-	memcpy(timingMap, map, size);
+//	uint16_t size = iterations * sonars;
+//	size = size/8 + size%8;
+	memcpy(timingMap, map, sizeof(timingMap));
 	iterationCount = iterations;
 	setSonarCount(sonars);
 	return true;
