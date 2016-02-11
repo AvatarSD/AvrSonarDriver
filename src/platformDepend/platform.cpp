@@ -9,6 +9,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/eeprom.h>
 
 uint8_t sonarsCount;
 
@@ -175,4 +176,40 @@ void setupExtInt()
 //	EIMSK=(0<<INT1) | (1<<INT0);
 //	EIFR=(0<<INTF1) | (1<<INTF0);
 //	PCICR=(0<<PCIE2) | (0<<PCIE1) | (0<<PCIE0);
+}
+
+uint8_t getSonarCount()
+{
+	return sonarsCount;
+}
+
+
+
+void saveSonarCount()
+{
+}
+
+void loadSonarCount()
+{
+}
+
+uint8_t iterEepromc EEMEM;
+void saveIterCount(uint8_t count)
+{
+}
+
+uint8_t loadIterCount()
+{
+}
+
+bool mapeeprom[MAX_ITERATIONS][MAX_SONAR_COUNT] EEMEM;
+#define MAP_BYTE_SIZE ((MAX_ITERATIONS*MAX_SONAR_COUNT)/8 + (MAX_ITERATIONS*MAX_SONAR_COUNT)%8)
+void saveMap(const bool** map)
+{
+	eeprom_write_block(map, mapeeprom, MAP_BYTE_SIZE);
+}
+
+void getMap(bool** map)
+{
+	eeprom_read_block(map, mapeeprom, MAP_BYTE_SIZE);
 }
