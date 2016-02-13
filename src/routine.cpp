@@ -15,6 +15,7 @@
 #define RELAX_TIME		20
 
 volatile uint8_t sonarIter = 0;
+volatile uint8_t sonarCurrIterCount;
 volatile uint8_t flag[MAX_SONAR_COUNT]; //one enter - one exit pear timer cycle
 
 void sonarPCintHandler(uint16_t timerCurr, uint8_t portState, uint8_t portNum)
@@ -40,7 +41,8 @@ void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum)
 		sendData(mainPort, "SR", sonarNum, distance);
 		flag[sonarNum] = -1;
 #ifdef RELAX_TIME
-		TIM_VAL = TIM_MAX - (RELAX_TIME * 250);
+		if (--sonarCurrIterCount == 0)
+			TIM_VAL = TIM_MAX - (RELAX_TIME * 250);
 #endif
 	}
 }
@@ -65,9 +67,13 @@ void timTrigOnEvent()
 
 void timTrigOffEvent()
 {
+	sonarCurrIterCount = 0;
 	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
 		if (getMapPosition(sonarIter, i))
+		{
 			trigOff(i);
+			sonarCurrIterCount++;
+		}
 	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
 		flag[i] = 0;
 }
