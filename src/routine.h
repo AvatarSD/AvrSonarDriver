@@ -10,7 +10,8 @@
 
 #include "inttypes.h"
 
-void sonarPCintHandler(uint16_t timerCurr, uint8_t portState, uint8_t portNum);
+void sonarPCintHandler(uint16_t timerCurr, uint8_t currPortState,
+		uint8_t lastPortState, uint8_t portNum);
 void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum);
 void timTrigOnEvent();
 void timTrigOffEvent();

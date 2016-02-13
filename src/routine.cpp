@@ -18,11 +18,21 @@ volatile uint8_t sonarIter = 0;
 volatile uint8_t sonarCurrIterCount;
 volatile uint8_t flag[MAX_SONAR_COUNT]; //one enter - one exit pear timer cycle
 
-void sonarPCintHandler(uint16_t timerCurr, uint8_t portState, uint8_t portNum)
+void sonarPCintHandler(uint16_t timerCurr, uint8_t currPortState,
+		uint8_t lastPortState, uint8_t portNum)
 {
-	bool pinState = (portState & (1 << (sonarIter + 2)));
+//	bool pinState = (portState & (1 << (sonarIter + 2)));
 
-	sonarRoutineHandler(timerCurr, pinState, sonarIter);
+	uint8_t xorByte = currPortState ^ lastPortState;
+	uint8_t pinNum = 0;
+	for (; pinNum <= 8; pinNum++, xorByte >>= 1)
+		if ((xorByte & 0x01) == 0x01)
+			break;
+	if (pinNum >= 8)
+		return;
+	bool pinState = currPortState & (1 << pinNum);
+	uint8_t sonarNum = pinNum + portNum*8;
+	sonarRoutineHandler(timerCurr, pinState, sonarNum);
 }
 
 void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum)
@@ -51,6 +61,7 @@ void timTrigOnEvent()
 {
 	if (++sonarIter == getSonarCount())
 		sonarIter = 0;
+	sonarCurrIterCount = 0;
 
 	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
 		if (getMapPosition(sonarIter, i))
@@ -67,7 +78,6 @@ void timTrigOnEvent()
 
 void timTrigOffEvent()
 {
-	sonarCurrIterCount = 0;
 	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
 		if (getMapPosition(sonarIter, i))
 		{

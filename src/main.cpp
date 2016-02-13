@@ -12,7 +12,7 @@
 int main()
 {
 	init();
-	setSonarCount(SONAR_COUNT);
+	//setSonarCount(SONAR_COUNT);
 	setupTimer();
 	setupExtInt();
 
