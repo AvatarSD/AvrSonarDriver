@@ -59,7 +59,7 @@ void timTrigOnEvent()
 	static uint16_t counter;
 	if (sonarIter == 0)
 		sendData(mainPort, "SB", 200, counter++);
-
+	sendData(mainPort, "IT", 201, sonarIter);
 //	for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
 //		if (analog[i] < MAX_ADC_DATA)
 //			sendData(mainPort, "OP", i, analog[i]);
