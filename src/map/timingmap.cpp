@@ -14,7 +14,7 @@ uint8_t iterationCount = 0;
 
 bool getMapPosition(uint8_t iteration, uint8_t sonarNum)
 {
-	if ((iteration < iterationCount) && (iteration < MAX_ITERATIONS)
+	if ((iteration < getIterationCount()) && (iteration < MAX_ITERATIONS)
 			&& (sonarNum < getSonarCount()) && (sonarNum < MAX_SONAR_COUNT))
 		return timingMap[iteration * MAX_SONAR_COUNT + sonarNum];
 
