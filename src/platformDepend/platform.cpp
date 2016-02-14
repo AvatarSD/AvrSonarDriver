@@ -11,6 +11,7 @@
 #include <avr/interrupt.h>
 #include <avr/eeprom.h>
 
+
 uint8_t sonarsCount;
 
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
@@ -206,13 +207,13 @@ uint8_t loadIterCount()
 	return eeprom_read_byte(&iterEepromc);
 }
 
-bool mapeeprom[MAX_ITERATIONS*MAX_SONAR_COUNT] EEMEM;
+bool mapeeprom[MAP_SIZE] EEMEM;
 void saveMapEeprom(const bool * map)
 {
-	eeprom_write_block(map, mapeeprom, sizeof(map));
+	eeprom_write_block(map, mapeeprom, MAP_SIZE);
 }
 
 void loadMapEeprom(bool * map)
 {
-	eeprom_read_block(map, mapeeprom, sizeof(map));
+	eeprom_read_block(map, mapeeprom, MAP_SIZE);
 }

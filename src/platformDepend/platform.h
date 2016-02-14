@@ -22,6 +22,7 @@
 #define MAX_ITERATIONS 6  //for eeprom mem buff
 #define TIM_MAX 0x3A97 // 0x3A97 - is 60ms period
 #define TIM_VAL TCNT1
+#define MAP_SIZE MAX_ITERATIONS*MAX_SONAR_COUNT
 /***************************/
 
 extern UART mainPort;

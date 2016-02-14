@@ -9,14 +9,14 @@
 #include "string.h"
 #include "../platformDepend/platform.h"
 
-bool timingMap[MAX_ITERATIONS * MAX_SONAR_COUNT];
+bool timingMap[MAP_SIZE];
 uint8_t iterationCount = 0;
 
 bool getMapPosition(uint8_t iteration, uint8_t sonarNum)
 {
 	if ((iteration < iterationCount) && (iteration < MAX_ITERATIONS)
 			&& (sonarNum < getSonarCount()) && (sonarNum < MAX_SONAR_COUNT))
-		return timingMap[iteration * MAX_ITERATIONS + sonarNum];
+		return timingMap[iteration * MAX_SONAR_COUNT + sonarNum];
 
 	return 0;
 }
@@ -27,7 +27,7 @@ bool writeMap(const bool * map, uint8_t iterations, uint8_t sonars)
 		return false;
 	for (uint8_t i = 0; i < iterations; i++)
 		for (uint8_t s = 0; s < sonars; s++)
-			timingMap[i * MAX_ITERATIONS + s] = map[i * iterations + s];
+			timingMap[i * MAX_SONAR_COUNT + s] = map[i * sonars + s];
 	iterationCount = iterations;
 	setSonarCount(sonars);
 	return true;
