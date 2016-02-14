@@ -65,6 +65,7 @@ void timTrigOnEvent()
 		sonarIter = 0;
 	sonarCurrIterCount = 0;
 
+//	trigOn(sonarIter);
 	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
 		if (getMapPosition(sonarIter, i))
 			trigOn(i);
@@ -80,6 +81,7 @@ void timTrigOnEvent()
 
 void timTrigOffEvent()
 {
+//	trigOff(sonarIter);
 	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
 		if (getMapPosition(sonarIter, i))
 		{
