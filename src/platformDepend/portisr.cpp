@@ -6,12 +6,12 @@
 
 #include "../routine.h"
 
-inline void PCintFastHendler(uint8_t portNum)
+inline void PCintFastHandler(uint8_t portNum)
 {
-	static uint8_t lastSnap = 0, lastSnapR;
+	static volatile uint8_t lastSnap = 0, lastSnapR;
 	cli();
-	uint8_t currSnap = PIND;
-	uint16_t timCurr = TIM_VAL;
+	volatile uint8_t currSnap = PIND;
+	volatile uint16_t timCurr = TIM_VAL;
 	lastSnapR = lastSnap;
 	lastSnap = currSnap;
 	sei();
@@ -22,7 +22,7 @@ inline void PCintFastHendler(uint8_t portNum)
 // Pin change 0-7 interrupt service routine
 ISR(PCINT2_vect)
 {
-	PCintFastHendler(0);
+	PCintFastHandler(0);
 }
 
 
