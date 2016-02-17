@@ -21,8 +21,6 @@ volatile uint8_t flag[MAX_SONAR_COUNT]; //one enter - one exit pear timer cycle
 void sonarPCintHandler(uint16_t timerCurr, uint8_t currPortState,
 		uint8_t lastPortState, uint8_t portNum)
 {
-//	bool pinState = (portState & (1 << (sonarIter + 2)));
-
 	uint8_t xorByte = currPortState ^ lastPortState;
 	uint8_t pinNum = 0;
 	for (; pinNum <= 8; pinNum++, xorByte >>= 1)

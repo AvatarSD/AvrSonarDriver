@@ -15,23 +15,12 @@
  * PORTE4-7 is INT4-7
  */
 
-inline void PCintFastHandler(uint8_t portNum)
-{
-	static volatile uint8_t lastSnap = 0, lastSnapR;
-	cli();
-	volatile uint8_t currSnap = PIND;
-	volatile uint16_t timCurr = TIM_VAL;
-	lastSnapR = lastSnap;
-	lastSnap = currSnap;
-	sei();
-
-	sonarPCintHandler(timCurr, currSnap, lastSnapR, portNum);
-}
 
 // Pin change 0-7 interrupt service routine
 ISR(PCINT0_vect)
 {
-	PCintFastHandler(0);
+	PCintSingleFastHandler(PINB, 0);
+	//PCintFastHandler(PINB, 0);
 }
 
 ISR(INT0_vect)
@@ -113,8 +102,6 @@ ISR(INT7_vect)
 
 	sonarRoutineHandler(timCurr, (currSnap & (1 << 7)), 15);
 }
-
-
 
 //External Interrupt 0 service routine
 //ISR(INT0_vect)
