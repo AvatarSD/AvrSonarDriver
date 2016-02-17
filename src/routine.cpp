@@ -7,7 +7,6 @@
 
 #include "routine.h"
 #include "uartport/uartport.h"
-#include "map/timingmap.h"
 
 //#include "ADC/Analog.h"
 //#define MAX_ADC_DATA	1000
@@ -90,3 +89,7 @@ void timTrigOffEvent()
 		flag[i] = 0;
 }
 
+uint8_t getCurrentIteration()
+{
+	return sonarIter;
+}

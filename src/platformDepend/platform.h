@@ -16,10 +16,10 @@
 #define UART_SPEED 		115200
 #define UART_TX_BUFF 	128
 #define UART_RX_BUF 	32
-#define UART_RX_INT_VEC USART_RX_vect
-#define UART_TX_INT_VEC USART_TX_vect
-#define MAX_SONAR_COUNT 6 // platform depended(lim for runtime reconfiguring)
-#define MAX_ITERATIONS 6  //for eeprom mem buff
+#define UART_RX_INT_VEC USART0_RX_vect
+#define UART_TX_INT_VEC USART0_TX_vect
+#define MAX_SONAR_COUNT 16 // platform depended(lim for runtime reconfiguring)
+#define MAX_ITERATIONS 20  //for eeprom mem buff
 #define TIM_MAX 0x3A97 // 0x3A97 - is 60ms period
 #define TIM_VAL TCNT1
 #define MAP_SIZE MAX_ITERATIONS*MAX_SONAR_COUNT

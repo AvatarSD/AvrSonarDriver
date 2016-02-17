@@ -9,13 +9,20 @@
 #define PLATFORMDEPEND_TIMERROUTINE_H_
 
 #include "inttypes.h"
+#include "map/timingmap.h"
+#include <avr/interrupt.h>
 
 void sonarPCintHandler(uint16_t timerCurr, uint8_t currPortState,
 		uint8_t lastPortState, uint8_t portNum);
 void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum);
 void timTrigOnEvent();
 void timTrigOffEvent();
+uint8_t getCurrentIteration();
 
+/*
+ * use for multiply parallel working sonar on one port,
+ * instead PCintSingleFastHandler work only with one sonar at same time
+ */
 inline void PCintFastHandler(uint8_t port, uint8_t portNum)
 {
 	static volatile uint8_t lastSnap = 0, lastSnapR;
@@ -29,6 +36,10 @@ inline void PCintFastHandler(uint8_t port, uint8_t portNum)
 	sonarPCintHandler(timCurr, currSnap, lastSnapR, portNum);
 }
 
+/*
+ * use it for detect rise and fall level on first
+ * sonar in row in timingMap at current iteration
+ */
 inline void PCintSingleFastHandler(uint8_t port, uint8_t portNum)
 {
 	cli();
@@ -38,7 +49,7 @@ inline void PCintSingleFastHandler(uint8_t port, uint8_t portNum)
 
 	uint8_t sonarNum = 0;
 	for (; sonarNum < MAX_SONAR_COUNT; sonarNum++)
-		if (getMapPosition(sonarIter, sonarNum))
+		if (getMapPosition(getCurrentIteration(), sonarNum))
 			break;
 
 	sonarRoutineHandler(timCurr, (currSnap & (1 << (sonarNum - portNum * 8))),
