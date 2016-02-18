@@ -11,7 +11,7 @@
 #include <avr/interrupt.h>
 #include <avr/eeprom.h>
 
-uint8_t sonarsCount;
+volatile uint8_t sonarsCount;
 
 UART mainPort(UART_PORT, UART_SPEED, UART_TX_BUFF, UART_RX_BUF);
 
@@ -26,33 +26,33 @@ ISR(UART_TX_INT_VEC)
 
 void trigOn(uint8_t pin)
 {
-	if (pin < 7)
+	if (pin < 8)
 		PORTA |= (1 << pin);
-	else if (pin < 15)
+	else if (pin < 16)
 		PORTC |= (1 << (pin - 8));
 }
 
 void trigOff(uint8_t pin)
 {
-	if (pin < 7)
+	if (pin < 8)
 		PORTA &= ~(1 << pin);
-	if (pin < 7)
+	else if (pin < 16)
 		PORTC &= ~(1 << (pin - 8));
 }
 
 void pinTrigOutOn(uint8_t pin)
 {
-	if (pin < 7)
+	if (pin < 8)
 		DDRA |= (1 << pin);
-	else if (pin < 15)
+	else if (pin < 16)
 		DDRC |= (1 << (pin - 8));
 }
 
 void pinTrigOutOff(uint8_t pin)
 {
-	if (pin < 7)
+	if (pin < 8)
 		DDRA &= ~(1 << pin);
-	if (pin < 7)
+	else if (pin < 16)
 		DDRC &= ~(1 << (pin - 8));
 }
 

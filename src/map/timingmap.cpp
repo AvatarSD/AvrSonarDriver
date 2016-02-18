@@ -9,8 +9,8 @@
 #include "string.h"
 #include "../platformDepend/platform.h"
 
-bool timingMap[MAP_SIZE];
-uint8_t iterationCount = 0;
+volatile bool timingMap[MAP_SIZE];
+volatile uint8_t iterationCount = 0;
 
 bool getMapPosition(uint8_t iteration, uint8_t sonarNum)
 {
@@ -35,12 +35,12 @@ bool writeMap(const bool * map, uint8_t iterations, uint8_t sonars)
 
 void loadMap()
 {
-	loadMapEeprom(timingMap);
+	loadMapEeprom((bool*)timingMap);
 }
 
 void saveMap()
 {
-	saveMapEeprom(timingMap);
+	saveMapEeprom((bool*)timingMap);
 }
 
 //const bool * getMap()
