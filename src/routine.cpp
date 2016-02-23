@@ -28,7 +28,7 @@ void sonarPCintHandler(uint16_t timerCurr, uint8_t currPortState,
 	if (pinNum >= 8)
 		return;
 	bool pinState = currPortState & (1 << pinNum);
-	uint8_t sonarNum = pinNum + portNum*8;
+	uint8_t sonarNum = pinNum + portNum * 8;
 	sonarRoutineHandler(timerCurr, pinState, sonarNum);
 }
 
@@ -56,16 +56,23 @@ void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum)
 
 void timTrigOnEvent()
 {
+	//cli();
+	//sendData(mainPort, "IT", 201, sonarIter);
+	//delay_ns(100);
 	sendData(mainPort, "IT", 201, sonarIter);
 
 	if (++sonarIter == getIterationCount())
 		sonarIter = 0;
-	sonarCurrIterCount = 0;
+/*	sonarCurrIterCount = 0;
 
 //	trigOn(sonarIter);
-	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
+	for (uint8_t i = 0; i < getSonarCount(); i++)
 		if (getMapPosition(sonarIter, i))
+		{
 			trigOn(i);
+			sonarCurrIterCount++;
+		}
+	//sei();*/
 
 	static uint16_t counter;
 	if (sonarIter == 0)
@@ -74,20 +81,21 @@ void timTrigOnEvent()
 //	for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
 //		if (analog[i] < MAX_ADC_DATA)
 //			sendData(mainPort, "OP", i, analog[i]);
-}
+//}
+//
+//void timTrigOffEvent()
+//{
 
-void timTrigOffEvent()
-{
+	/*delay_ns(10);*/
+
 //	trigOff(sonarIter);
-	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
-		if (getMapPosition(sonarIter, i))
-		{
-			trigOff(i);
-			sonarCurrIterCount++;
-		}
-	for (uint8_t i = 0; i < MAX_SONAR_COUNT; i++)
+	/*trigOff();*/
+
+	for (uint8_t i = 0; i < getSonarCount(); i++)
 		flag[i] = 0;
 }
+
+//void timTrigOffEvent(){};
 
 uint8_t getCurrentIteration()
 {

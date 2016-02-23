@@ -16,7 +16,7 @@ void sonarPCintHandler(uint16_t timerCurr, uint8_t currPortState,
 		uint8_t lastPortState, uint8_t portNum);
 void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum);
 void timTrigOnEvent();
-void timTrigOffEvent();
+//void timTrigOffEvent();
 uint8_t getCurrentIteration();
 
 /*
@@ -47,13 +47,12 @@ inline void PCintSingleFastHandler(uint8_t port, uint8_t portNum)
 	volatile uint16_t timCurr = TIM_VAL;
 	sei();
 
-	uint8_t sonarNum = 0;
-	for (; sonarNum < MAX_SONAR_COUNT; sonarNum++)
+	uint8_t sonarNum = portNum * 8;
+	for (; sonarNum < ((portNum + 1) * 8); sonarNum++)
 		if (getMapPosition(getCurrentIteration(), sonarNum))
 			break;
 
-	sonarRoutineHandler(timCurr, (currSnap & (1 << (sonarNum - portNum * 8))),
-			sonarNum);
+	sonarRoutineHandler(timCurr, (currSnap & (1 << (sonarNum - portNum * 8))), sonarNum);
 
 }
 

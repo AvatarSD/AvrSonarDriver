@@ -11,7 +11,7 @@ ISR(TIMER1_CAPT_vect)
 }
 
 // Timer1 output compare A interrupt service routine
-ISR(TIMER1_COMPA_vect)
-{
-	timTrigOffEvent();
-}
+//ISR(TIMER1_COMPA_vect)
+//{
+//	timTrigOffEvent();
+//}

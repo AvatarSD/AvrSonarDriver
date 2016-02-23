@@ -17,5 +17,6 @@ bool writeMap(const bool * map, uint8_t iterations, uint8_t sonars);
 void loadMap();
 void saveMap();
 uint8_t getIterationCount();
+void setIterationCount(uint8_t iterations);
 
 #endif /* MAP_TIMINGMAP_H_ */

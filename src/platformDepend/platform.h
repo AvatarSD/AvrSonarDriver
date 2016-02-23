@@ -10,6 +10,8 @@
 
 #include <avr/io.h>
 #include "UART/UART.h"
+#include <util/delay.h>
+#include <avr/interrupt.h>
 
 /********* Settings ********/
 #define UART_PORT 		UDR0
@@ -25,6 +27,9 @@
 #define MAP_SIZE MAX_ITERATIONS*MAX_SONAR_COUNT
 /***************************/
 
+#define delay_ns(x) _delay_us(x)
+#define delay_ms(x) _delay_ms(x)
+
 extern UART mainPort;
 
 void init();
@@ -32,6 +37,7 @@ void setupTimer();
 void setupExtInt();
 void trigOn(uint8_t pin);
 void trigOff(uint8_t pin);
+void trigOff();
 void setSonarCount(uint8_t count);
 uint8_t getSonarCount();
 

@@ -28,7 +28,7 @@ bool writeMap(const bool * map, uint8_t iterations, uint8_t sonars)
 	for (uint8_t i = 0; i < iterations; i++)
 		for (uint8_t s = 0; s < sonars; s++)
 			timingMap[i * MAX_SONAR_COUNT + s] = map[i * sonars + s];
-	iterationCount = iterations;
+	setIterationCount(iterations);
 	setSonarCount(sonars);
 	return true;
 }
@@ -36,11 +36,15 @@ bool writeMap(const bool * map, uint8_t iterations, uint8_t sonars)
 void loadMap()
 {
 	loadMapEeprom((bool*)timingMap);
+	setIterationCount(loadIterCount());
+	loadSonarCount();
 }
 
 void saveMap()
 {
 	saveMapEeprom((bool*)timingMap);
+	saveIterCount(getIterationCount());
+	saveSonarCount();
 }
 
 //const bool * getMap()
@@ -51,4 +55,9 @@ void saveMap()
 uint8_t getIterationCount()
 {
 	return iterationCount;
+}
+
+void setIterationCount(uint8_t iterations)
+{
+	iterationCount = iterations;
 }

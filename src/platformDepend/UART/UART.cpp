@@ -184,9 +184,11 @@ void UART::BreakCOM(void)
 
 void UART::print(const char * str)
 {
+	//cli();
 	int curr = 0;
 	while(str[curr] != '\0')
 		putch(str[curr++]);
+	//sei();
 }
 
 void UART::print(long int num)
