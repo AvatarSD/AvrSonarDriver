@@ -27,7 +27,7 @@ void trigOn(uint8_t pin)
 {
 	if (pin < 8)
 		PORTA |= (1 << pin);
-	else if (pin < 16)
+	else if ((pin >= 8)&&(pin < 16))
 		PORTC |= (1 << (pin - 8));
 }
 
@@ -35,7 +35,7 @@ void trigOff(uint8_t pin)
 {
 	if (pin < 8)
 		PORTA &= ~(1 << pin);
-	else if (pin < 16)
+	else if ((pin >= 8)&&(pin < 16))
 		PORTC &= ~(1 << (pin - 8));
 }
 
@@ -49,7 +49,7 @@ void pinTrigOutOn(uint8_t pin)
 {
 	if (pin < 8)
 		DDRA |= (1 << pin);
-	else if (pin < 16)
+	else if ((pin >= 8)&&(pin < 16))
 		DDRC |= (1 << (pin - 8));
 }
 
@@ -57,7 +57,7 @@ void pinTrigOutOff(uint8_t pin)
 {
 	if (pin < 8)
 		DDRA &= ~(1 << pin);
-	else if (pin < 16)
+	else if ((pin >= 8)&&(pin < 16))
 		DDRC &= ~(1 << (pin - 8));
 }
 

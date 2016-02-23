@@ -56,46 +56,35 @@ void sonarRoutineHandler(uint16_t timerCurr, bool pinState, uint8_t sonarNum)
 
 void timTrigOnEvent()
 {
-	//cli();
-	//sendData(mainPort, "IT", 201, sonarIter);
-	//delay_ns(100);
+	// uart strobe and iteration point
 	sendData(mainPort, "IT", 201, sonarIter);
-
+	static uint16_t counter;
 	if (++sonarIter == getIterationCount())
+	{
 		sonarIter = 0;
-/*	sonarCurrIterCount = 0;
+		sendData(mainPort, "SB", 200, counter++);
+	}
 
-//	trigOn(sonarIter);
+	// trig on
+	sonarCurrIterCount = 0;
 	for (uint8_t i = 0; i < getSonarCount(); i++)
 		if (getMapPosition(sonarIter, i))
 		{
 			trigOn(i);
 			sonarCurrIterCount++;
 		}
-	//sei();*/
 
-	static uint16_t counter;
-	if (sonarIter == 0)
-		sendData(mainPort, "SB", 200, counter++);
-
-//	for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
-//		if (analog[i] < MAX_ADC_DATA)
-//			sendData(mainPort, "OP", i, analog[i]);
-//}
-//
-//void timTrigOffEvent()
-//{
-
-	/*delay_ns(10);*/
-
-//	trigOff(sonarIter);
-	/*trigOff();*/
-
+	// trig off
+	delay_ns(10);
+	trigOff();
 	for (uint8_t i = 0; i < getSonarCount(); i++)
 		flag[i] = 0;
-}
 
-//void timTrigOffEvent(){};
+	// ADC routine for optical
+	//	for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
+	//		if (analog[i] < MAX_ADC_DATA)
+	//			sendData(mainPort, "OP", i, analog[i]);
+}
 
 uint8_t getCurrentIteration()
 {
