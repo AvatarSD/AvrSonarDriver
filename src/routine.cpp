@@ -80,10 +80,10 @@ void timTrigOnEvent()
 	for (uint8_t i = 0; i < getSonarCount(); i++)
 		flag[i] = 0;
 
-//	 ADC routine for optical
-		for (uint8_t i = 0; i < LAST_ADC_INPUT - FIRST_ADC_INPUT; i++)
-			if (analog[i] < MAX_ADC_DATA)
-				sendData(mainPort, "OP", i, analog[i]);
+	//ADC routine for optical
+	for (uint8_t i = 0; i <= (LAST_ADC_INPUT - FIRST_ADC_INPUT); i++)
+		if (analog[i] < MAX_ADC_DATA)
+			sendData(mainPort, "OP", i, analog[i]);
 }
 
 uint8_t getCurrentIteration()
