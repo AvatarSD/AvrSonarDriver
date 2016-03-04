@@ -11,10 +11,9 @@
 
 /**********************/
 #define FIRST_ADC_INPUT 0
-#define LAST_ADC_INPUT 7
-// Voltage Reference: AVCC pin
-#define ADC_VREF_TYPE ((0<<REFS1) | (1<<REFS0) | (0<<ADLAR))
-
+#define LAST_ADC_INPUT 15
+// Voltage Reference: 2.56V, cap. on AREF
+#define ADC_VREF_TYPE ((1<<REFS1) | (1<<REFS0) | (0<<ADLAR))
 /**********************/
 
 
@@ -28,7 +27,7 @@ public:
 	unsigned int operator[](char pin);
 
 private:
-	volatile unsigned int adc_data[LAST_ADC_INPUT-FIRST_ADC_INPUT+1];
+	volatile unsigned int adc_data[(LAST_ADC_INPUT-FIRST_ADC_INPUT)+1];
 };
 
 extern Analog analog;
