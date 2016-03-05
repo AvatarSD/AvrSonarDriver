@@ -16,7 +16,7 @@
 /********* Settings ********/
 #define UART_PORT 		UDR0
 #define UART_SPEED 		115200
-#define UART_TX_BUFF 	128
+#define UART_TX_BUFF 	512
 #define UART_RX_BUF 	32
 #define UART_RX_INT_VEC USART0_RX_vect
 #define UART_TX_INT_VEC USART0_TX_vect
