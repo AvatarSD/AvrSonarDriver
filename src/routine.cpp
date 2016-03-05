@@ -10,6 +10,7 @@
 
 #include "platformDepend/ADC/Analog.h"
 #define MAX_ADC_DATA	1000
+#define MIN_ADC_DATA	100
 
 #define RELAX_TIME		20
 
@@ -82,7 +83,7 @@ void timTrigOnEvent()
 
 	//ADC routine for optical
 	for (uint8_t i = 0; i <= (LAST_ADC_INPUT - FIRST_ADC_INPUT); i++)
-		if (analog[i] < MAX_ADC_DATA)
+		if ((analog[i] > MIN_ADC_DATA)&&(analog[i] < MAX_ADC_DATA))
 			sendData(mainPort, "OP", i, analog[i]);
 }
 
