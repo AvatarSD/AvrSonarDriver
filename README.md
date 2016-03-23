@@ -45,10 +45,10 @@ Pins at arduino mega:
 At my shield pins connections is follow:
 
 <pre>
-&nbsp;&nbsp;&nbsp;&nbsp;0 1 2 3 4 … 14 15
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 1 2 3 4 … 14 15
 Vcc	 * * * * *    * *
-Trig	* * * * *    * *
-Echo	* * * * *    * *
+Trig * * * * *    * *
+Echo * * * * *    * *
 GND	 * * * * *    * *
 
 Vcc	 * * * * *    * *
@@ -60,6 +60,7 @@ GND	 * * * * *    * *
 
 ### Optical sensor:
 Value from analog pins read after even iterations. Because relation between output and measured distance is diffrent at diffrent sensor, data value is raw from 10-bit adc with 2.56 volt reference voltage. In example, relations between distance and output voltage at Sharp GP2Y0A02YK0f:
+
 ![](http://a.pololu-files.com/picture/0J1124.600.png?d089c9f198a26180cccab9494b8e8c1e)
 
 ### Data Output Format
