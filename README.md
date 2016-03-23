@@ -50,7 +50,7 @@ Pins at arduino mega:
 At my shield pins connections is follow:
 
 <pre>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	0 1 2 3 4 … 14 15
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 1 2 3 4 … 14 15
 Vcc	 * * * * *    * *
 Trig * * * * *    * *
 Echo * * * * *    * *
