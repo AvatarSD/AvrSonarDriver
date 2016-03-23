@@ -19,15 +19,15 @@ bool timingMap[NUM_OF_ITERATIONS*NUM_OF_SONARS] =
 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1,
 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0,
 };
-	```
+```
 There is a one-dimention array, witch provides a relations between iterations and witch sonars will do measuring at this iterations. Must be written at internal buffer by method:
 ```
 writeMap(timingMap, NUM_OF_ITERATIONS, NUM_OF_SONARS);
-	```
+```
 And save to EEPROM by:
 ```
 saveMap();
-	```
+```
 
 ### Connections
  * PORTB(PCINT0-7) is 0-7 sonars echo input
