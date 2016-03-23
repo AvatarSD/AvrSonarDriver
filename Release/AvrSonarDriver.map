@@ -1,0 +1,1292 @@
+Archive member included because of file (symbol)
+
+/usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+                              ./src/platformDepend/UART/UART.o (__udivmodsi4)
+/usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o (exit)
+/usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+                              ./src/platformDepend/UART/UART.o (__do_copy_data)
+/usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                              ./src/platformDepend/ADC/Analog.o (__do_clear_bss)
+/usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+                              ./src/platformDepend/ADC/Analog.o (__do_global_ctors)
+/usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+                              ./src/platformDepend/platform.o (__do_global_dtors)
+/usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+                              /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o) (__tablejump_elpm__)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o)
+                              ./src/routine.o (__divsf3)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o) (__divsf3x)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+                              ./src/routine.o (__fixunssfsi)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(floatsisf.o)
+                              ./src/routine.o (__floatunsisf)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_inf.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o) (__fp_inf)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_nan.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o) (__fp_nan)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o) (__fp_pscA)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o) (__fp_pscB)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_round.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o) (__fp_round)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_split3.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o) (__fp_split3)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_zero.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fixunssfsi.o) (__fp_zero)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o)
+                              ./src/platformDepend/UART/UART.o (calloc)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+                              ./src/platformDepend/UART/DynMem/memory.o (malloc)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(memset.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o) (memset)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(sprintf.o)
+                              ./src/platformDepend/UART/UART.o (sprintf)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(sprintf.o) (vfprintf)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_block_atmega2560.o)
+                              ./src/platformDepend/platform.o (__eerd_block_m2560)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_byte_atmega2560.o)
+                              ./src/platformDepend/platform.o (__eerd_byte_m2560)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_block_atmega2560.o)
+                              ./src/platformDepend/platform.o (__eewr_block_m2560)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_byte_atmega2560.o)
+                              ./src/platformDepend/platform.o (__eewr_byte_m2560)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o) (strnlen_P)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o) (strnlen)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(fputc.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o) (fputc)
+/usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o) (__ultoa_invert)
+
+Allocating common symbols
+Common symbol       size              file
+
+__brkval            0x2               /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+__flp               0x2               /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+
+Discarded input sections
+
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+ .text          0x0000000000000000        0x0 ./src/uartport/uartport.o
+ .bss           0x0000000000000000        0x0 ./src/uartport/uartport.o
+ .text          0x0000000000000000        0x0 ./src/platformDepend/UART/DynMem/memory.o
+ .bss           0x0000000000000000        0x0 ./src/platformDepend/UART/DynMem/memory.o
+ .text._Znwj    0x0000000000000000        0x4 ./src/platformDepend/UART/DynMem/memory.o
+ .group         0x0000000000000000        0x8 ./src/platformDepend/UART/UART.o
+ .text          0x0000000000000000        0x0 ./src/platformDepend/UART/UART.o
+ .bss           0x0000000000000000        0x0 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART7setBaudEm
+                0x0000000000000000       0x6c ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5putchEc
+                0x0000000000000000       0x6e ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5getchEv
+                0x0000000000000000       0x42 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART7ReadCOMEjPh
+                0x0000000000000000       0xa4 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5flushEv
+                0x0000000000000000       0x10 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART8BreakCOMEv
+                0x0000000000000000       0x84 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5printEPKc
+                0x0000000000000000       0x78 ./src/platformDepend/UART/UART.o
+ .rodata.str1.1
+                0x0000000000000000       0x11 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5printEl
+                0x0000000000000000      0x10a ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5printEi
+                0x0000000000000000       0xf8 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5printEm
+                0x0000000000000000      0x10a ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5printEj
+                0x0000000000000000       0xf8 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5printEd
+                0x0000000000000000      0x10a ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5printEPK19__FlashStringHelper
+                0x0000000000000000       0xae ./src/platformDepend/UART/UART.o
+ .text._ZN4UART9availableEv
+                0x0000000000000000        0x8 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART4peekEv
+                0x0000000000000000       0x1a ./src/platformDepend/UART/UART.o
+ .text._ZN4UART3endEv
+                0x0000000000000000       0x22 ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5beginEv
+                0x0000000000000000       0x1c ./src/platformDepend/UART/UART.o
+ .text._ZN4UART5beginEl
+                0x0000000000000000       0x82 ./src/platformDepend/UART/UART.o
+ .text          0x0000000000000000        0x0 ./src/platformDepend/ADC/Analog.o
+ .bss           0x0000000000000000        0x0 ./src/platformDepend/ADC/Analog.o
+ .text._ZN6AnalogC2Ev
+                0x0000000000000000       0x1a ./src/platformDepend/ADC/Analog.o
+ .text._ZN6Analog5beginEv
+                0x0000000000000000       0x1a ./src/platformDepend/ADC/Analog.o
+ .text._ZN6Analog6ADCintEv
+                0x0000000000000000       0x74 ./src/platformDepend/ADC/Analog.o
+ .text._ZN6Analog6dataAtEc
+                0x0000000000000000       0x1c ./src/platformDepend/ADC/Analog.o
+ .text          0x0000000000000000        0x0 ./src/platformDepend/platform.o
+ .bss           0x0000000000000000        0x0 ./src/platformDepend/platform.o
+ .text._Z7trigOffh
+                0x0000000000000000       0x3e ./src/platformDepend/platform.o
+ .text._Z12pinTrigOutOnh
+                0x0000000000000000       0x3a ./src/platformDepend/platform.o
+ .text._Z13pinTrigOutOffh
+                0x0000000000000000       0x3e ./src/platformDepend/platform.o
+ .text._Z13setSonarCounth
+                0x0000000000000000       0x94 ./src/platformDepend/platform.o
+ .text._Z14saveSonarCountv
+                0x0000000000000000        0xc ./src/platformDepend/platform.o
+ .text._Z13saveIterCounth
+                0x0000000000000000        0xa ./src/platformDepend/platform.o
+ .text._Z13saveMapEepromPKb
+                0x0000000000000000        0xc ./src/platformDepend/platform.o
+ .text          0x0000000000000000        0x0 ./src/platformDepend/portisr.o
+ .bss           0x0000000000000000        0x0 ./src/platformDepend/portisr.o
+ .text          0x0000000000000000        0x0 ./src/platformDepend/timerisr.o
+ .bss           0x0000000000000000        0x0 ./src/platformDepend/timerisr.o
+ .text          0x0000000000000000        0x0 ./src/map/timingmap.o
+ .bss           0x0000000000000000        0x0 ./src/map/timingmap.o
+ .text._Z8writeMapPKbhh
+                0x0000000000000000      0x30e ./src/map/timingmap.o
+ .text._Z7saveMapv
+                0x0000000000000000       0x14 ./src/map/timingmap.o
+ .text._Z17setIterationCounth
+                0x0000000000000000        0x6 ./src/map/timingmap.o
+ .text          0x0000000000000000        0x0 ./src/main.o
+ .bss           0x0000000000000000        0x0 ./src/main.o
+ .text          0x0000000000000000        0x0 ./src/routine.o
+ .bss           0x0000000000000000        0x0 ./src/routine.o
+ .text._Z17sonarPCintHandlerjhhh
+                0x0000000000000000      0x114 ./src/routine.o
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(floatsisf.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(floatsisf.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_inf.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_inf.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_nan.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_nan.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_round.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_round.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_split3.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_split3.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_zero.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_zero.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(memset.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(memset.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(sprintf.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(sprintf.o)
+ .text.avr-libc
+                0x0000000000000000       0x5e /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(sprintf.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+ .text.avr-libc
+                0x0000000000000000      0x3f6 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_block_atmega2560.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_block_atmega2560.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_byte_atmega2560.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_byte_atmega2560.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_block_atmega2560.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_block_atmega2560.o)
+ .text.avr-libc
+                0x0000000000000000       0x14 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_block_atmega2560.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_byte_atmega2560.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_byte_atmega2560.o)
+ .text.avr-libc
+                0x0000000000000000       0x1c /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_byte_atmega2560.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+ .text.avr-libc
+                0x0000000000000000       0x16 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen.o)
+ .text.avr-libc
+                0x0000000000000000       0x16 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(fputc.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(fputc.o)
+ .text.avr-libc
+                0x0000000000000000       0x64 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(fputc.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+ .text.avr-libc
+                0x0000000000000000       0xbc /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x0000000000000000 0x0000000000100000 xr
+data             0x0000000000800200 0x000000000000fe00 rw !x
+eeprom           0x0000000000810000 0x0000000000010000 rw !x
+fuse             0x0000000000820000 0x0000000000000400 rw !x
+lock             0x0000000000830000 0x0000000000000400 rw !x
+signature        0x0000000000840000 0x0000000000000400 rw !x
+user_signatures  0x0000000000850000 0x0000000000000400 rw !x
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800200
+LOAD /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+LOAD ./src/uartport/uartport.o
+LOAD ./src/platformDepend/UART/DynMem/memory.o
+LOAD ./src/platformDepend/UART/UART.o
+LOAD ./src/platformDepend/ADC/Analog.o
+LOAD ./src/platformDepend/platform.o
+LOAD ./src/platformDepend/portisr.o
+LOAD ./src/platformDepend/timerisr.o
+LOAD ./src/map/timingmap.o
+LOAD ./src/main.o
+LOAD ./src/routine.o
+LOAD /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a
+LOAD /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a
+START GROUP
+LOAD /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a
+LOAD /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a
+LOAD /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a
+END GROUP
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x0000000000000000     0x1482
+ *(.vectors)
+ .vectors       0x0000000000000000       0xe4 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+                0x0000000000000000                __vectors
+                0x0000000000000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+                0x00000000000000e4                . = ALIGN (0x2)
+                0x00000000000000e4                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000000000000e4        0x0 linker stubs
+ *(.trampolines*)
+                0x00000000000000e4                __trampolines_end = .
+ *(.progmem*)
+                0x00000000000000e4                . = ALIGN (0x2)
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000000000000e4                __ctors_start = .
+ *(.ctors)
+ .ctors         0x00000000000000e4        0x2 ./src/platformDepend/ADC/Analog.o
+ .ctors         0x00000000000000e6        0x2 ./src/platformDepend/platform.o
+                0x00000000000000e8                __ctors_end = .
+                0x00000000000000e8                __dtors_start = .
+ *(.dtors)
+ .dtors         0x00000000000000e8        0x2 ./src/platformDepend/platform.o
+                0x00000000000000ea                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000000000000ea        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+                0x00000000000000ea                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000000000000ea       0x10 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000000000000fa       0x1a /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+                0x00000000000000fa                __do_copy_data
+ .init4         0x0000000000000114       0x10 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                0x0000000000000114                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ .init6         0x0000000000000124       0x1e /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+                0x0000000000000124                __do_global_ctors
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x0000000000000142        0x6 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+ *(.init9)
+ *(.text)
+ .text          0x0000000000000148        0x2 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+                0x0000000000000148                __vector_38
+                0x0000000000000148                __vector_22
+                0x0000000000000148                __vector_28
+                0x0000000000000148                __vector_32
+                0x0000000000000148                __vector_34
+                0x0000000000000148                __vector_24
+                0x0000000000000148                __vector_12
+                0x0000000000000148                __vector_55
+                0x0000000000000148                __vector_46
+                0x0000000000000148                __bad_interrupt
+                0x0000000000000148                __vector_31
+                0x0000000000000148                __vector_35
+                0x0000000000000148                __vector_39
+                0x0000000000000148                __vector_23
+                0x0000000000000148                __vector_30
+                0x0000000000000148                __vector_45
+                0x0000000000000148                __vector_11
+                0x0000000000000148                __vector_54
+                0x0000000000000148                __vector_13
+                0x0000000000000148                __vector_17
+                0x0000000000000148                __vector_19
+                0x0000000000000148                __vector_56
+                0x0000000000000148                __vector_49
+                0x0000000000000148                __vector_41
+                0x0000000000000148                __vector_43
+                0x0000000000000148                __vector_33
+                0x0000000000000148                __vector_47
+                0x0000000000000148                __vector_52
+                0x0000000000000148                __vector_37
+                0x0000000000000148                __vector_44
+                0x0000000000000148                __vector_51
+                0x0000000000000148                __vector_21
+                0x0000000000000148                __vector_15
+                0x0000000000000148                __vector_36
+                0x0000000000000148                __vector_40
+                0x0000000000000148                __vector_26
+                0x0000000000000148                __vector_48
+                0x0000000000000148                __vector_14
+                0x0000000000000148                __vector_53
+                0x0000000000000148                __vector_10
+                0x0000000000000148                __vector_50
+                0x0000000000000148                __vector_18
+                0x0000000000000148                __vector_20
+                0x0000000000000148                __vector_42
+                0x000000000000014a                . = ALIGN (0x2)
+ *(.text.*)
+ .text._Z8sendDataR4UARTPKchj
+                0x000000000000014a       0x66 ./src/uartport/uartport.o
+                0x000000000000014a                _Z8sendDataR4UARTPKchj
+ .text._ZdlPv   0x00000000000001b0        0x4 ./src/platformDepend/UART/DynMem/memory.o
+                0x00000000000001b0                _ZdlPv
+ .text._ZN4UART11byteRecivedEc
+                0x00000000000001b4        0x2 ./src/platformDepend/UART/UART.o
+                0x00000000000001b4                _ZN4UART11byteRecivedEc
+ .text._ZN4UARTD2Ev
+                0x00000000000001b6       0x40 ./src/platformDepend/UART/UART.o
+                0x00000000000001b6                _ZN4UARTD1Ev
+                0x00000000000001b6                _ZN4UARTD2Ev
+ .text._ZN4UARTD0Ev
+                0x00000000000001f6       0x44 ./src/platformDepend/UART/UART.o
+                0x00000000000001f6                _ZN4UARTD0Ev
+ .text._ZN4UARTC2ERVhmii
+                0x000000000000023a      0x162 ./src/platformDepend/UART/UART.o
+                0x000000000000023a                _ZN4UARTC2ERVhmii
+                0x000000000000023a                _ZN4UARTC1ERVhmii
+ .text._ZN4UART11tx_byte_intEv
+                0x000000000000039c       0x54 ./src/platformDepend/UART/UART.o
+                0x000000000000039c                _ZN4UART11tx_byte_intEv
+ .text._ZN4UART8WriteCOMEjPh
+                0x00000000000003f0       0x86 ./src/platformDepend/UART/UART.o
+                0x00000000000003f0                _ZN4UART8WriteCOMEjPh
+ .text._ZN4UART11rx_byte_intEv
+                0x0000000000000476       0x78 ./src/platformDepend/UART/UART.o
+                0x0000000000000476                _ZN4UART11rx_byte_intEv
+ .text.__vector_29
+                0x00000000000004ee       0xa4 ./src/platformDepend/ADC/Analog.o
+                0x00000000000004ee                __vector_29
+ .text._ZN6AnalogixEc
+                0x0000000000000592       0x1c ./src/platformDepend/ADC/Analog.o
+                0x0000000000000592                _ZN6AnalogixEc
+ .text.startup._GLOBAL__sub_I_analog
+                0x00000000000005ae       0x1a ./src/platformDepend/ADC/Analog.o
+ .text.__vector_25
+                0x00000000000005c8       0x52 ./src/platformDepend/platform.o
+                0x00000000000005c8                __vector_25
+ .text.__vector_27
+                0x000000000000061a       0x52 ./src/platformDepend/platform.o
+                0x000000000000061a                __vector_27
+ .text._Z6trigOnh
+                0x000000000000066c       0x3a ./src/platformDepend/platform.o
+                0x000000000000066c                _Z6trigOnh
+ .text._Z7trigOffv
+                0x00000000000006a6        0x6 ./src/platformDepend/platform.o
+                0x00000000000006a6                _Z7trigOffv
+ .text._Z13getSonarCountv
+                0x00000000000006ac        0x6 ./src/platformDepend/platform.o
+                0x00000000000006ac                _Z13getSonarCountv
+ .text._Z4initv
+                0x00000000000006b2       0xee ./src/platformDepend/platform.o
+                0x00000000000006b2                _Z4initv
+ .text._Z10setupTimerv
+                0x00000000000007a0       0x32 ./src/platformDepend/platform.o
+                0x00000000000007a0                _Z10setupTimerv
+ .text._Z11setupExtIntv
+                0x00000000000007d2       0x3e ./src/platformDepend/platform.o
+                0x00000000000007d2                _Z11setupExtIntv
+ .text._Z14loadSonarCountv
+                0x0000000000000810       0x9a ./src/platformDepend/platform.o
+                0x0000000000000810                _Z14loadSonarCountv
+ .text._Z13loadIterCountv
+                0x00000000000008aa        0x6 ./src/platformDepend/platform.o
+                0x00000000000008aa                _Z13loadIterCountv
+ .text._Z13loadMapEepromPb
+                0x00000000000008b0        0xa ./src/platformDepend/platform.o
+                0x00000000000008b0                _Z13loadMapEepromPb
+ .text.exit._GLOBAL__sub_D_sonarsCount
+                0x00000000000008ba        0x6 ./src/platformDepend/platform.o
+ .text.startup._GLOBAL__sub_I_sonarsCount
+                0x00000000000008c0       0x2e ./src/platformDepend/platform.o
+ .text.__vector_9
+                0x00000000000008ee       0xc6 ./src/platformDepend/portisr.o
+                0x00000000000008ee                __vector_9
+ .text.__vector_1
+                0x00000000000009b4       0x60 ./src/platformDepend/portisr.o
+                0x00000000000009b4                __vector_1
+ .text.__vector_2
+                0x0000000000000a14       0x62 ./src/platformDepend/portisr.o
+                0x0000000000000a14                __vector_2
+ .text.__vector_3
+                0x0000000000000a76       0x64 ./src/platformDepend/portisr.o
+                0x0000000000000a76                __vector_3
+ .text.__vector_4
+                0x0000000000000ada       0x64 ./src/platformDepend/portisr.o
+                0x0000000000000ada                __vector_4
+ .text.__vector_5
+                0x0000000000000b3e       0x62 ./src/platformDepend/portisr.o
+                0x0000000000000b3e                __vector_5
+ .text.__vector_6
+                0x0000000000000ba0       0x64 ./src/platformDepend/portisr.o
+                0x0000000000000ba0                __vector_6
+ .text.__vector_7
+                0x0000000000000c04       0x64 ./src/platformDepend/portisr.o
+                0x0000000000000c04                __vector_7
+ .text.__vector_8
+                0x0000000000000c68       0x64 ./src/platformDepend/portisr.o
+                0x0000000000000c68                __vector_8
+ .text.__vector_16
+                0x0000000000000ccc       0x4e ./src/platformDepend/timerisr.o
+                0x0000000000000ccc                __vector_16
+ .text._Z14getMapPositionhh
+                0x0000000000000d1a       0x4a ./src/map/timingmap.o
+                0x0000000000000d1a                _Z14getMapPositionhh
+ .text._Z7loadMapv
+                0x0000000000000d64        0xe ./src/map/timingmap.o
+                0x0000000000000d64                _Z7loadMapv
+ .text._Z17getIterationCountv
+                0x0000000000000d72        0x6 ./src/map/timingmap.o
+                0x0000000000000d72                _Z17getIterationCountv
+ .text.startup.main
+                0x0000000000000d78        0xa ./src/main.o
+                0x0000000000000d78                main
+ .text._Z19sonarRoutineHandlerjbh
+                0x0000000000000d82       0xa4 ./src/routine.o
+                0x0000000000000d82                _Z19sonarRoutineHandlerjbh
+ .text._Z14timTrigOnEventv
+                0x0000000000000e26       0xe4 ./src/routine.o
+                0x0000000000000e26                _Z14timTrigOnEventv
+ .text._Z19getCurrentIterationv
+                0x0000000000000f0a        0x6 ./src/routine.o
+                0x0000000000000f0a                _Z19getCurrentIterationv
+ .text.libgcc.div
+                0x0000000000000f10       0x44 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+                0x0000000000000f10                __udivmodsi4
+ .text.libgcc   0x0000000000000f54        0x8 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+                0x0000000000000f54                __tablejump_elpm__
+ .text.avr-libc.fplib
+                0x0000000000000f5c        0x4 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o)
+                0x0000000000000f5c                __divsf3
+ .text.avr-libc.fplib
+                0x0000000000000f60       0xcc /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+                0x0000000000000f76                __divsf3x
+                0x0000000000000f7a                __divsf3_pse
+ .text.avr-libc.fplib
+                0x000000000000102c       0x58 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+                0x000000000000102c                __fixunssfsi
+ .text.avr-libc.fplib
+                0x0000000000001084       0x7a /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(floatsisf.o)
+                0x0000000000001084                __floatunsisf
+                0x0000000000001088                __floatsisf
+ .text.avr-libc.fplib
+                0x00000000000010fe        0xc /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_inf.o)
+                0x00000000000010fe                __fp_inf
+ .text.avr-libc.fplib
+                0x000000000000110a        0x6 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_nan.o)
+                0x000000000000110a                __fp_nan
+ .text.avr-libc.fplib
+                0x0000000000001110        0xe /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+                0x0000000000001110                __fp_pscA
+ .text.avr-libc.fplib
+                0x000000000000111e        0xe /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+                0x000000000000111e                __fp_pscB
+ .text.avr-libc.fplib
+                0x000000000000112c       0x22 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_round.o)
+                0x000000000000112c                __fp_round
+ .text.avr-libc.fplib
+                0x000000000000114e       0x44 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_split3.o)
+                0x000000000000114e                __fp_split3
+                0x000000000000115e                __fp_splitA
+ .text.avr-libc.fplib
+                0x0000000000001192        0xe /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_zero.o)
+                0x0000000000001192                __fp_zero
+                0x0000000000001194                __fp_szero
+ .text.avr-libc
+                0x00000000000011a0       0x34 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o)
+                0x00000000000011a0                calloc
+ .text.avr-libc
+                0x00000000000011d4      0x24e /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+                0x00000000000011d4                malloc
+                0x0000000000001304                free
+ .text.avr-libc
+                0x0000000000001422        0xe /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(memset.o)
+                0x0000000000001422                memset
+ .text.avr-libc
+                0x0000000000001430       0x20 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_block_atmega2560.o)
+                0x0000000000001430                __eerd_block_m2560
+                0x0000000000001434                __eerd_blraw_m2560
+ .text.avr-libc
+                0x0000000000001450       0x10 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_byte_atmega2560.o)
+                0x0000000000001450                __eerd_byte_m2560
+                0x0000000000001460                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x0000000000001460        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                0x0000000000001460                exit
+                0x0000000000001460                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ .fini6         0x0000000000001460       0x1e /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+                0x0000000000001460                __do_global_dtors
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000000000000147e        0x4 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ *(.fini0)
+                0x0000000000001482                _etext = .
+
+.data           0x0000000000800200       0x1c load address 0x0000000000001482
+                0x0000000000800200                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+ .data          0x0000000000800200        0x0 ./src/uartport/uartport.o
+ .data          0x0000000000800200        0x0 ./src/platformDepend/UART/DynMem/memory.o
+ .data          0x0000000000800200        0x0 ./src/platformDepend/UART/UART.o
+ .data          0x0000000000800200        0x0 ./src/platformDepend/ADC/Analog.o
+ .data          0x0000000000800200        0x0 ./src/platformDepend/platform.o
+ .data          0x0000000000800200        0x0 ./src/platformDepend/portisr.o
+ .data          0x0000000000800200        0x0 ./src/platformDepend/timerisr.o
+ .data          0x0000000000800200        0x0 ./src/map/timingmap.o
+ .data          0x0000000000800200        0x0 ./src/main.o
+ .data          0x0000000000800200        0x0 ./src/routine.o
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(floatsisf.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_inf.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_nan.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_round.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_split3.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_zero.o)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o)
+ .data          0x0000000000800200        0x6 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+                0x0000000000800200                __malloc_heap_end
+                0x0000000000800202                __malloc_heap_start
+                0x0000000000800204                __malloc_margin
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(memset.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(sprintf.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_block_atmega2560.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_byte_atmega2560.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_block_atmega2560.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_byte_atmega2560.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(fputc.o)
+ .data          0x0000000000800206        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ .rodata._ZTV4UART
+                0x0000000000800206        0xa ./src/platformDepend/UART/UART.o
+                0x0000000000800206                _ZTV4UART
+ .rodata.str1.1
+                0x0000000000800210        0xc ./src/routine.o
+ *(.gnu.linkonce.d*)
+                0x000000000080021c                . = ALIGN (0x2)
+                0x000000000080021c                _edata = .
+                0x000000000080021c                PROVIDE (__data_end, .)
+
+.bss            0x000000000080021c      0x1bb
+                0x000000000080021c                PROVIDE (__bss_start, .)
+ *(.bss)
+ *(.bss*)
+ .bss._ZZN6Analog6ADCintEvE11input_index
+                0x000000000080021c        0x1 ./src/platformDepend/ADC/Analog.o
+ .bss.analog    0x000000000080021d       0x20 ./src/platformDepend/ADC/Analog.o
+                0x000000000080021d                analog
+ .bss.mainPort  0x000000000080023d       0x20 ./src/platformDepend/platform.o
+                0x000000000080023d                mainPort
+ .bss.sonarsCount
+                0x000000000080025d        0x1 ./src/platformDepend/platform.o
+                0x000000000080025d                sonarsCount
+ .bss.iterationCount
+                0x000000000080025e        0x1 ./src/map/timingmap.o
+                0x000000000080025e                iterationCount
+ .bss.timingMap
+                0x000000000080025f      0x140 ./src/map/timingmap.o
+                0x000000000080025f                timingMap
+ .bss._ZZ14timTrigOnEventvE7counter
+                0x000000000080039f        0x2 ./src/routine.o
+ .bss._ZZ19sonarRoutineHandlerjbhE9timerLast
+                0x00000000008003a1       0x20 ./src/routine.o
+ .bss.flag      0x00000000008003c1       0x10 ./src/routine.o
+                0x00000000008003c1                flag
+ .bss.sonarCurrIterCount
+                0x00000000008003d1        0x1 ./src/routine.o
+                0x00000000008003d1                sonarCurrIterCount
+ .bss.sonarIter
+                0x00000000008003d2        0x1 ./src/routine.o
+                0x00000000008003d2                sonarIter
+ *(COMMON)
+ COMMON         0x00000000008003d3        0x4 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+                0x00000000008003d3                __brkval
+                0x00000000008003d5                __flp
+                0x00000000008003d7                PROVIDE (__bss_end, .)
+                0x0000000000001482                __data_load_start = LOADADDR (.data)
+                0x000000000000149e                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x00000000008003d7        0x0
+                0x00000000008003d7                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x00000000008003d7                PROVIDE (__noinit_end, .)
+                0x00000000008003d7                _end = .
+                0x00000000008003d7                PROVIDE (__heap_start, .)
+
+.eeprom         0x0000000000810000      0x142
+ *(.eeprom*)
+ .eeprom        0x0000000000810000      0x142 ./src/platformDepend/platform.o
+                0x0000000000810000                mapeeprom
+                0x0000000000810140                iterEepromc
+                0x0000000000810141                sonarsCountEeprom
+                0x0000000000810142                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.user_signatures
+ *(.user_signatures*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x0000000000000000       0x11
+ *(.comment)
+ .comment       0x0000000000000000       0x11 ./src/uartport/uartport.o
+                                         0x12 (size before relaxing)
+ .comment       0x0000000000000000       0x12 ./src/platformDepend/UART/DynMem/memory.o
+ .comment       0x0000000000000000       0x12 ./src/platformDepend/UART/UART.o
+ .comment       0x0000000000000000       0x12 ./src/platformDepend/ADC/Analog.o
+ .comment       0x0000000000000000       0x12 ./src/platformDepend/platform.o
+ .comment       0x0000000000000000       0x12 ./src/platformDepend/portisr.o
+ .comment       0x0000000000000000       0x12 ./src/platformDepend/timerisr.o
+ .comment       0x0000000000000000       0x12 ./src/map/timingmap.o
+ .comment       0x0000000000000000       0x12 ./src/main.o
+ .comment       0x0000000000000000       0x12 ./src/routine.o
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(sprintf.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(fputc.o)
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info .gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line .debug_line.* .debug_line_end)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges
+ *(.debug_ranges)
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(AvrSonarDriver.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+Analog::ADCint()                                  ./src/platformDepend/ADC/Analog.o
+Analog::Analog()                                  ./src/platformDepend/ADC/Analog.o
+Analog::Analog()                                  ./src/platformDepend/ADC/Analog.o
+Analog::begin()                                   ./src/platformDepend/ADC/Analog.o
+Analog::dataAt(char)                              ./src/platformDepend/ADC/Analog.o
+Analog::operator[](char)                          ./src/platformDepend/ADC/Analog.o
+                                                  ./src/routine.o
+UART::BreakCOM()                                  ./src/platformDepend/UART/UART.o
+UART::ReadCOM(unsigned int, unsigned char*)       ./src/platformDepend/UART/UART.o
+UART::UART(unsigned char volatile&, unsigned long, int, int) ./src/platformDepend/UART/UART.o
+UART::UART(unsigned char volatile&, unsigned long, int, int) ./src/platformDepend/UART/UART.o
+                                                  ./src/platformDepend/platform.o
+UART::WriteCOM(unsigned int, unsigned char*)      ./src/platformDepend/UART/UART.o
+                                                  ./src/uartport/uartport.o
+UART::available()                                 ./src/platformDepend/UART/UART.o
+UART::begin()                                     ./src/platformDepend/UART/UART.o
+UART::begin(long)                                 ./src/platformDepend/UART/UART.o
+UART::byteRecived(char)                           ./src/platformDepend/UART/UART.o
+UART::end()                                       ./src/platformDepend/UART/UART.o
+UART::flush()                                     ./src/platformDepend/UART/UART.o
+UART::getch()                                     ./src/platformDepend/UART/UART.o
+UART::peek()                                      ./src/platformDepend/UART/UART.o
+UART::print(__FlashStringHelper const*)           ./src/platformDepend/UART/UART.o
+UART::print(char const*)                          ./src/platformDepend/UART/UART.o
+UART::print(double)                               ./src/platformDepend/UART/UART.o
+UART::print(int)                                  ./src/platformDepend/UART/UART.o
+UART::print(long)                                 ./src/platformDepend/UART/UART.o
+UART::print(unsigned int)                         ./src/platformDepend/UART/UART.o
+UART::print(unsigned long)                        ./src/platformDepend/UART/UART.o
+UART::putch(char)                                 ./src/platformDepend/UART/UART.o
+UART::rx_byte_int()                               ./src/platformDepend/UART/UART.o
+                                                  ./src/platformDepend/platform.o
+UART::setBaud(unsigned long)                      ./src/platformDepend/UART/UART.o
+UART::tx_byte_int()                               ./src/platformDepend/UART/UART.o
+                                                  ./src/platformDepend/platform.o
+UART::~UART()                                     ./src/platformDepend/UART/UART.o
+UART::~UART()                                     ./src/platformDepend/UART/UART.o
+                                                  ./src/platformDepend/platform.o
+UART::~UART()                                     ./src/platformDepend/UART/UART.o
+__bad_interrupt                                   /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__brkval                                          /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+__bss_end                                         /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+__bss_start                                       /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+__ctors_end                                       /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+__ctors_start                                     /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+__data_end                                        /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+__data_load_start                                 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+__data_start                                      /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+__divsf3                                          /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o)
+                                                  ./src/routine.o
+__divsf3_pse                                      /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+__divsf3x                                         /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o)
+__do_clear_bss                                    /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+                                                  ./src/routine.o
+                                                  ./src/map/timingmap.o
+                                                  ./src/platformDepend/platform.o
+                                                  ./src/platformDepend/ADC/Analog.o
+__do_copy_data                                    /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+                                                  ./src/routine.o
+                                                  ./src/platformDepend/UART/UART.o
+__do_global_ctors                                 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+                                                  ./src/platformDepend/platform.o
+                                                  ./src/platformDepend/ADC/Analog.o
+__do_global_dtors                                 /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+                                                  ./src/platformDepend/platform.o
+__dtors_end                                       /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+__dtors_start                                     /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+__eerd_block_m2560                                /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_block_atmega2560.o)
+                                                  ./src/platformDepend/platform.o
+__eerd_blraw_m2560                                /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_block_atmega2560.o)
+__eerd_byte_m2560                                 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eerd_byte_atmega2560.o)
+                                                  ./src/platformDepend/platform.o
+__eewr_block_m2560                                /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_block_atmega2560.o)
+                                                  ./src/platformDepend/platform.o
+__eewr_byte_m2560                                 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_byte_atmega2560.o)
+                                                  ./src/platformDepend/platform.o
+__eewr_r18_m2560                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_byte_atmega2560.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(eewr_block_atmega2560.o)
+__fixunssfsi                                      /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+                                                  ./src/routine.o
+__floatsisf                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(floatsisf.o)
+__floatunsisf                                     /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(floatsisf.o)
+                                                  ./src/routine.o
+__flp                                             /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+__fp_inf                                          /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_inf.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+__fp_nan                                          /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_nan.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+__fp_pscA                                         /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+__fp_pscB                                         /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+__fp_round                                        /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_round.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3.o)
+__fp_split3                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_split3.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+__fp_splitA                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_split3.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+__fp_szero                                        /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_zero.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(divsf3x.o)
+__fp_zero                                         /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fp_zero.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+__heap_end                                        /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+__heap_start                                      /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+__init                                            /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__malloc_heap_end                                 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+__malloc_heap_start                               /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+__malloc_margin                                   /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+__stack                                           /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__tablejump_elpm__                                /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_tablejump_elpm.o)
+                                                  /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_dtors.o)
+                                                  /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_ctors.o)
+__udivmodsi4                                      /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_udivmodsi4.o)
+                                                  ./src/platformDepend/UART/UART.o
+__ultoa_invert                                    /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+__vector_1                                        ./src/platformDepend/portisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_10                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_11                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_12                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_13                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_14                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_15                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_16                                       ./src/platformDepend/timerisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_17                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_18                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_19                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_2                                        ./src/platformDepend/portisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_20                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_21                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_22                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_23                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_24                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_25                                       ./src/platformDepend/platform.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_26                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_27                                       ./src/platformDepend/platform.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_28                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_29                                       ./src/platformDepend/ADC/Analog.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_3                                        ./src/platformDepend/portisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_30                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_31                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_32                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_33                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_34                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_35                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_36                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_37                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_38                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_39                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_4                                        ./src/platformDepend/portisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_40                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_41                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_42                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_43                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_44                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_45                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_46                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_47                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_48                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_49                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_5                                        ./src/platformDepend/portisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_50                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_51                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_52                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_53                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_54                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_55                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_56                                       /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_6                                        ./src/platformDepend/portisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_7                                        ./src/platformDepend/portisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_8                                        ./src/platformDepend/portisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_9                                        ./src/platformDepend/portisr.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vector_default                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+__vectors                                         /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+_exit                                             /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+analog                                            ./src/platformDepend/ADC/Analog.o
+                                                  ./src/routine.o
+calloc                                            /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o)
+                                                  ./src/platformDepend/UART/UART.o
+exit                                              /usr/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+flag                                              ./src/routine.o
+fputc                                             /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(fputc.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+free                                              /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+                                                  ./src/platformDepend/UART/UART.o
+                                                  ./src/platformDepend/UART/DynMem/memory.o
+getCurrentIteration()                             ./src/routine.o
+                                                  ./src/platformDepend/portisr.o
+getIterationCount()                               ./src/map/timingmap.o
+                                                  ./src/routine.o
+getMapPosition(unsigned char, unsigned char)      ./src/map/timingmap.o
+                                                  ./src/routine.o
+                                                  ./src/platformDepend/portisr.o
+getSonarCount()                                   ./src/platformDepend/platform.o
+                                                  ./src/routine.o
+                                                  ./src/map/timingmap.o
+init()                                            ./src/platformDepend/platform.o
+                                                  ./src/main.o
+iterEepromc                                       ./src/platformDepend/platform.o
+iterationCount                                    ./src/map/timingmap.o
+loadIterCount()                                   ./src/platformDepend/platform.o
+                                                  ./src/map/timingmap.o
+loadMap()                                         ./src/map/timingmap.o
+                                                  ./src/main.o
+loadMapEeprom(bool*)                              ./src/platformDepend/platform.o
+                                                  ./src/map/timingmap.o
+loadSonarCount()                                  ./src/platformDepend/platform.o
+                                                  ./src/map/timingmap.o
+main                                              ./src/main.o
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/crtm2560.o
+mainPort                                          ./src/platformDepend/platform.o
+                                                  ./src/routine.o
+malloc                                            /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(malloc.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o)
+                                                  ./src/platformDepend/UART/DynMem/memory.o
+mapeeprom                                         ./src/platformDepend/platform.o
+memset                                            /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(memset.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(calloc.o)
+operator delete(void*)                            ./src/platformDepend/UART/DynMem/memory.o
+                                                  ./src/platformDepend/UART/UART.o
+operator new(unsigned int)                        ./src/platformDepend/UART/DynMem/memory.o
+pinTrigOutOff(unsigned char)                      ./src/platformDepend/platform.o
+pinTrigOutOn(unsigned char)                       ./src/platformDepend/platform.o
+saveIterCount(unsigned char)                      ./src/platformDepend/platform.o
+                                                  ./src/map/timingmap.o
+saveMap()                                         ./src/map/timingmap.o
+saveMapEeprom(bool const*)                        ./src/platformDepend/platform.o
+                                                  ./src/map/timingmap.o
+saveSonarCount()                                  ./src/platformDepend/platform.o
+                                                  ./src/map/timingmap.o
+sendData(UART&, char const*, unsigned char, unsigned int) ./src/uartport/uartport.o
+                                                  ./src/routine.o
+setIterationCount(unsigned char)                  ./src/map/timingmap.o
+setSonarCount(unsigned char)                      ./src/platformDepend/platform.o
+                                                  ./src/map/timingmap.o
+setupExtInt()                                     ./src/platformDepend/platform.o
+                                                  ./src/main.o
+setupTimer()                                      ./src/platformDepend/platform.o
+                                                  ./src/main.o
+sonarCurrIterCount                                ./src/routine.o
+sonarIter                                         ./src/routine.o
+sonarPCintHandler(unsigned int, unsigned char, unsigned char, unsigned char) ./src/routine.o
+sonarRoutineHandler(unsigned int, bool, unsigned char) ./src/routine.o
+                                                  ./src/platformDepend/portisr.o
+sonarsCount                                       ./src/platformDepend/platform.o
+sonarsCountEeprom                                 ./src/platformDepend/platform.o
+sprintf                                           /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(sprintf.o)
+                                                  ./src/platformDepend/UART/UART.o
+strnlen                                           /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+strnlen_P                                         /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+timTrigOnEvent()                                  ./src/routine.o
+                                                  ./src/platformDepend/timerisr.o
+timingMap                                         ./src/map/timingmap.o
+trigOff()                                         ./src/platformDepend/platform.o
+                                                  ./src/routine.o
+trigOff(unsigned char)                            ./src/platformDepend/platform.o
+trigOn(unsigned char)                             ./src/platformDepend/platform.o
+                                                  ./src/routine.o
+vfprintf                                          /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+                                                  /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr6/libc.a(sprintf.o)
+vtable for UART                                   ./src/platformDepend/UART/UART.o
+writeMap(bool const*, unsigned char, unsigned char) ./src/map/timingmap.o
