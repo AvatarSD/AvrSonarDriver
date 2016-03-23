@@ -64,7 +64,7 @@ GND	 * * * * *    * *
 0-7 sonars can do only single-port measuring at one iterations opposite to 8-15 sonars, witch can do measuring in parallel mode, all at one iterations.
 
 ### Optical sensor:
-Value from analog pins read after even iterations. Because relation between output and measured distance is different at different sensor, data value is raw from 10-bit adc with 2.56 volt reference voltage. In example, relations between distance and output voltage at Sharp GP2Y0A02YK0f:
+Value from analog pins read after each iterations. Because relation between output and measured distance is different at different sensor, data value is raw from 10-bit adc with 2.56 volt reference voltage. In example, relations between distance and output voltage at Sharp GP2Y0A02YK0f:
 
 ![](http://a.pololu-files.com/picture/0J1124.600.png?d089c9f198a26180cccab9494b8e8c1e)
 
@@ -79,8 +79,8 @@ Where:
  **portName** is two character:
 * SR - is sonar
 * OP - is optical
-* IT - send after even iteration, pinNum is math to 201 and distance are sonar iteration number
-* SB - is "strobe", send after even cycle of iterations, **pinNum** is math to 200 and distance are increment number.
+* IT - send after each iteration, pinNum is math to 201 and distance are sonar iteration number
+* SB - is "strobe", send after each cycle of iterations, **pinNum** is math to 200 and distance are increment number.
 
 **pinNum** is number of input line.
 
